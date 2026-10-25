@@ -1,0 +1,23 @@
+TidyTV
+Copyright 2026 the TidyTV contributors. Licensed under the MIT License.
+
+This product includes work from:
+
+cleanyourtv (https://github.com/Gathin23/cleanyourtv), MIT License, Copyright (c) 2026 Gathin.
+  The per-model debloat lists (bundled as a snapshot from upstream/cleanyourtv/examples) and the
+  safety rules ported into core: list parsing, the setupwraith guard, disable/restore order.
+  The Apple TV style home screen, built from upstream/cleanyourtv/launcher by
+  tools/build-styled-home.sh and bundled as app/src/main/assets/launcher/cleanyourtv-home.apk.
+
+tv-detox (https://github.com/Ansub/tv-detox), MIT License, Copyright (c) 2026 Ansub Khan.
+  The home screen app bundled as app/src/main/assets/launcher/tvhome.apk (v1.3.0) and the
+  install, undo and check patterns ported into core.
+
+Kadb (https://github.com/Flyfish233/Kadb), Apache License 2.0.
+  The ADB client used to talk to the TV.
+
+Simple Icons (https://simpleicons.org), CC0 1.0.
+  Brand marks in app/src/main/assets/icons.json. They are used only to identify each app; all
+  trademarks belong to their owners.
+
+Nunito (https://github.com/googlefonts/nunito), SIL Open Font License 1.1. See docs/OFL-Nunito.txt.

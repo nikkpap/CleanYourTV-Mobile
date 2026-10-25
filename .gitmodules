@@ -1,0 +1,6 @@
+[submodule "upstream/cleanyourtv"]
+	path = upstream/cleanyourtv
+	url = https://github.com/Gathin23/cleanyourtv
+[submodule "upstream/tv-detox"]
+	path = upstream/tv-detox
+	url = https://github.com/Ansub/tv-detox
