@@ -31,7 +31,7 @@ object ProfileImport {
                 val app = APP.matchEntire(e.name)?.groupValues?.get(1)
                 when {
                     app != null && app.endsWith(".apk", ignoreCase = true) ->
-                        File(dir, app).also { f -> f.outputStream().use { z.copyTo(it) }; apps += it }
+                        File(dir, app).also { f -> f.outputStream().use { out -> z.copyTo(out) }; apps += f }
                     app != null -> skipped += app
                     else -> top[e.name] = readLimited(z, e.name)
                 }
