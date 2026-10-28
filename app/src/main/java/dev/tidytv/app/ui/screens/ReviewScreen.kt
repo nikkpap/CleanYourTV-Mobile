@@ -125,7 +125,7 @@ fun ReviewScreen(
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text("Nothing will be changed.", style = MaterialTheme.typography.bodyLarge, color = Tidy.Muted, modifier = Modifier.weight(1f))
                 MoreInfo("No tested list yet") {
-                    Body("Your backup is saved, but TidyTV only turns apps off from a list someone has checked on the same model. Nothing will be changed.", color = Tidy.Ink)
+                    Body("Your backup is saved, but CleanYourTV only turns apps off from a list someone has checked on the same model. Nothing will be changed.", color = Tidy.Ink)
                 }
             }
             return@ScreenFrame
@@ -156,7 +156,7 @@ private fun BackupHeader(b: BackupStatus, onRetry: () -> Unit) {
         BackupStatus.Running -> Bubble("Saving a backup…") { Spinner(26.dp) }
         BackupStatus.Saved -> InfoChip(Icons.Rounded.CheckCircle, "Backup saved")
         is BackupStatus.Failed -> Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Note("${b.message} TidyTV won't change anything without a backup.", color = Tidy.RedSoft, textColor = Tidy.Red)
+            Note("${b.message} CleanYourTV won't change anything without a backup.", color = Tidy.RedSoft, textColor = Tidy.Red)
             TextLink("Try the backup again", onRetry)
         }
     }
@@ -188,8 +188,8 @@ private fun MoreAppsCard(apps: List<Candidate>, selected: Set<String>, onToggleA
                 Text("From other TVs' lists", style = MaterialTheme.typography.labelMedium, color = Tidy.Muted)
             }
             MoreInfo("More apps") {
-                Body("These come from lists for other TVs, not yours. TidyTV found them installed on your TV, but nobody has tested turning them off on this model.", color = Tidy.Ink)
-                Body("None are picked to start with. Only pick apps you know and don't use. Apps TidyTV protects, like the Play Store, keyboard and TV inputs, are never shown.", color = Tidy.Ink)
+                Body("These come from lists for other TVs, not yours. CleanYourTV found them installed on your TV, but nobody has tested turning them off on this model.", color = Tidy.Ink)
+                Body("None are picked to start with. Only pick apps you know and don't use. Apps CleanYourTV protects, like the Play Store, keyboard and TV inputs, are never shown.", color = Tidy.Ink)
                 Body("Your backup is saved, so Restore everything turns them back on.", color = Tidy.Ink)
             }
         }

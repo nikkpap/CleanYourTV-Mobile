@@ -7,7 +7,7 @@ import dev.tidytv.core.ops.TvConnectionLost
 import dev.tidytv.core.ops.TvShell
 
 /**
- * A stateful simulated Android TV that answers the commands TidyTV sends, with the output formats
+ * A stateful simulated Android TV that answers the commands CleanYourTV sends, with the output formats
  * real TVs print. Used by every unit test and by the app's demo mode. Failure knobs let tests
  * reproduce field problems: dropped connections, refused commands, changes that don't stick,
  * install errors and Home landing on Google TV's setup app.
@@ -62,7 +62,7 @@ class FakeTv(
     var disableDoesNotStick: MutableSet<String> = mutableSetOf()
     var enableDoesNotStick: MutableSet<String> = mutableSetOf()
     var installAnswer: String = "Success"
-    /** Which of TidyTV's home screens the next pushed APK is. */
+    /** Which of CleanYourTV's home screens the next pushed APK is. */
     var installAs: HomeApp = HomeApp.SIMPLE
     var startAnswer: String? = null
     var mirrorWritable = true

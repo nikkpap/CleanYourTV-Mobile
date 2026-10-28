@@ -93,13 +93,13 @@ fun SendFilesScreen(
                     FileKind(Icons.Rounded.MusicNote, "Music", Tidy.Orange)
                     FileKind(Icons.Rounded.Description, "Docs", Tidy.Green)
                 }
-                Body("Saved in Downloads › TidyTV", align = TextAlign.Center)
+                Body("Saved in Downloads › CleanYourTV", align = TextAlign.Center)
             }
         }
         s.freeBytes?.let { InfoChip(Icons.Rounded.SdStorage, "${formatBytes(it)} free on the TV", color = Tidy.Grey, textColor = Tidy.Ink) }
         s.items.forEach { SendRow(it, onCancel, onRetry) }
         if (s.items.isNotEmpty() && s.items.all { it.status == SendStatus.SENT }) {
-            SafetyBanner("Sent. On the TV, open Downloads › TidyTV.")
+            SafetyBanner("Sent. On the TV, open Downloads › CleanYourTV.")
         }
     }
 }

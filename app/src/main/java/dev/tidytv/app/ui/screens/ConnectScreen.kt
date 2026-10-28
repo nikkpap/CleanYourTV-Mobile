@@ -121,7 +121,7 @@ private fun Scanning(state: ConnectState.Scanning, onEvent: (ConnectEvent) -> Un
                 else -> "Tap your TV"
             },
         ) { if (!state.done) Spinner(26.dp) }
-        if (state.lookingFor != null) Body("Your TV may have a new address. TidyTV is finding it again.")
+        if (state.lookingFor != null) Body("Your TV may have a new address. CleanYourTV is finding it again.")
         for (tv in state.found) TvCard(tv.title, tv.subtitle, onClick = { onEvent(ConnectEvent.Pick(tv)) })
         if (state.done || state.found.isNotEmpty()) {
             if (typing) IpField(false, onEvent) else TextLink("My TV isn't here? Type its IP address", { typing = true })

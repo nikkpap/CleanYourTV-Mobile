@@ -3,7 +3,7 @@ package dev.tidytv.core.ops
 import java.io.IOException
 
 /**
- * The only way TidyTV talks to a TV. The real one is the adb module's Kadb connection; tests use
+ * The only way CleanYourTV talks to a TV. The real one is the adb module's Kadb connection; tests use
  * FakeTv. Output is stdout and stderr together: legacy adb shells have no exit codes, so every
  * check in core parses output, as upstream's scripts do.
  */

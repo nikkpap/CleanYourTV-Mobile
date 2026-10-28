@@ -1,0 +1,23 @@
+{
+  "background_color": "#04070C",
+  "wallpaper": true,
+  "wallpaper_rotation_minutes": 60,
+  "wallpaper_order": "sequential",
+  "wallpaper_moods": {
+    "morning": [
+      "2-olympus.jpg"
+    ],
+    "evening": [
+      "1-meteora.jpg"
+    ],
+    "night": [
+      "3-aegean.jpg"
+    ]
+  },
+  "wallpaper_captions": true,
+  "dock_glass": true,
+  "icon_only_buttons": true,
+  "app_glow": true,
+  "glow_style": "horizon",
+  "focus_overshoot": false
+}

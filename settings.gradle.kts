@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "tidytv"
+rootProject.name = "cleanyourtv-mobile"
 include(":core", ":adb", ":app")

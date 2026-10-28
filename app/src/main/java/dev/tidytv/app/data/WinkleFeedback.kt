@@ -86,7 +86,7 @@ class WinkleFeedback(
             append(d.message.trim())
             // The log goes in the message: the endpoint has no field for it, and it is what
             // turns "it didn't work on my TV" into a test fixture.
-            d.log?.takeIf { it.isNotBlank() }?.let { append("\n\n--- TidyTV log ---\n").append(it.takeLast(MAX_LOG)) }
+            d.log?.takeIf { it.isNotBlank() }?.let { append("\n\n--- CleanYourTV log ---\n").append(it.takeLast(MAX_LOG)) }
         })
         put("page", d.page)
         put("platform", "android")
@@ -116,8 +116,8 @@ class WinkleFeedback(
     companion object {
         const val ENDPOINT = "https://script.google.com/macros/s/AKfycby0QaDRjH985eQtheMNWZ-ZkjUB17WFZx1FoLygxoey3Q301siHewE_Nb_Mb2Xj90yF/exec"
 
-        /** Must match TidyTV's `name` in winkle-hq/config/apps.json. */
-        const val APP_NAME = "TidyTV"
+        /** Must match CleanYourTV's `name` in winkle-hq/config/apps.json. */
+        const val APP_NAME = "CleanYourTV"
         private const val MAX_LOG = 20_000
 
         /** Decodes a picked image and re-encodes it as a JPEG of at most 1280 px, quality 70. */

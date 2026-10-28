@@ -96,7 +96,7 @@ class UpkeepTest {
         val out = LauncherHandover(tv, log, clock = { 5L }, sleep = {}, app = HomeApp.PROJECTIVY).run(ByteArray(0), emptyList(), sdk = 30)
         assertEquals(HandoverOutcome.Done(Launchers.LAUNCHERX), out)
         assertEquals("com.spocky.projengmenu/.ui.home.MainActivity", tv.home())
-        assertTrue("nothing pushed or installed by TidyTV", tv.pushed.isEmpty() && tv.commands.none { it == Commands.INSTALL_TMP })
+        assertTrue("nothing pushed or installed by CleanYourTV", tv.pushed.isEmpty() && tv.commands.none { it == Commands.INSTALL_TMP })
         assertFalse(log.records().launcherInstalledByUs(HomeApp.PROJECTIVY.pkg))
     }
 

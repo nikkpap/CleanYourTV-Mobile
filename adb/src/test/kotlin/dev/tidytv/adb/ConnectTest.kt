@@ -181,8 +181,8 @@ class ConnectTest {
         val shell = (connect() as ConnectResult.Connected).shell
         val data = ByteArray(3 * 1024 * 1024 + 7) { (it % 251).toByte() }
         val progress = mutableListOf<Long>()
-        shell.pushStream(data.inputStream(), data.size.toLong(), "/sdcard/Download/TidyTV/movie.mp4") { progress += it }
-        assertTrue("file arrived intact", data.contentEquals(tv.pushed["/sdcard/Download/TidyTV/movie.mp4"]))
+        shell.pushStream(data.inputStream(), data.size.toLong(), "/sdcard/Download/CleanYourTV/movie.mp4") { progress += it }
+        assertTrue("file arrived intact", data.contentEquals(tv.pushed["/sdcard/Download/CleanYourTV/movie.mp4"]))
         assertTrue("several progress steps", progress.size > 3)
         assertEquals(data.size.toLong(), progress.last())
     }

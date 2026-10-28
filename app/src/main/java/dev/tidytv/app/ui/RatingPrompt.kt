@@ -34,7 +34,7 @@ import androidx.compose.ui.window.Dialog
 /** The stars worth asking for: 4 and 5 go to the store, anything lower comes to us. */
 const val HAPPY_STARS = 4
 
-/** "Enjoying TidyTV?" with five stars. [onRate] gets the number; [onLater] is "Maybe later". */
+/** "Enjoying CleanYourTV?" with five stars. [onRate] gets the number; [onLater] is "Maybe later". */
 @Composable
 fun RatingPrompt(onRate: (Int) -> Unit, onLater: () -> Unit) {
     Dialog(onDismissRequest = onLater) {
@@ -42,7 +42,7 @@ fun RatingPrompt(onRate: (Int) -> Unit, onLater: () -> Unit) {
             var picked by remember { mutableIntStateOf(0) }
             Column(Modifier.fillMaxWidth().padding(8.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(10.dp)) {
                 HeroMascot(mood = Mood.CHEER, height = 110.dp)
-                Text("Enjoying TidyTV?", style = MaterialTheme.typography.headlineSmall, color = Tidy.Ink, textAlign = TextAlign.Center)
+                Text("Enjoying CleanYourTV?", style = MaterialTheme.typography.headlineSmall, color = Tidy.Ink, textAlign = TextAlign.Center)
                 Text("Tap a star. It helps other people find the app.", style = MaterialTheme.typography.bodyMedium, color = Tidy.Muted, textAlign = TextAlign.Center)
                 Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                     for (n in 1..5) Icon(

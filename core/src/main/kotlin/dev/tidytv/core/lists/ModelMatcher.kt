@@ -44,7 +44,7 @@ object ModelMatcher {
     )
 
     /**
-     * Lists TidyTV can't apply, so they're never offered. tivo-stream-4k: the firmware refuses every
+     * Lists CleanYourTV can't apply, so they're never offered. tivo-stream-4k: the firmware refuses every
      * `pm disable-user` (its list suspends apps instead) and uninstalls other home screens at each boot.
      */
     val NOT_FOR_TIDYTV = setOf("tivo-stream-4k")

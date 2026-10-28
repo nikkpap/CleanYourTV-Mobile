@@ -1,0 +1,11 @@
+{
+  "background_color": "#05010C",
+  "wallpaper": true,
+  "dock_glass": true,
+  "icon_only_buttons": true,
+  "icon_only_inputs": true,
+  "app_glow": true,
+  "advanced_effects": true,
+  "glass_style": "glass",
+  "wifi_status_color": true
+}

@@ -109,7 +109,7 @@ fun FeedbackSheet(
                 HeroMascot(mood = Mood.HAPPY, height = 120.dp)
                 Title("Thank you!", align = androidx.compose.ui.text.style.TextAlign.Center, modifier = Modifier.fillMaxWidth())
                 Body(
-                    if (kind == FeedbackKind.BUG) "Your message and log are with us. Each real TV log helps make TidyTV safer for everyone."
+                    if (kind == FeedbackKind.BUG) "Your message and log are with us. Each real TV log helps make CleanYourTV safer for everyone."
                     else "Your message is with us. It really helps.",
                     align = androidx.compose.ui.text.style.TextAlign.Center,
                 )
@@ -127,7 +127,7 @@ fun FeedbackSheet(
                         when (kind) {
                             FeedbackKind.BUG -> "What happened? Which step were you on?"
                             FeedbackKind.PRAISE -> "What did you like?"
-                            FeedbackKind.FEATURE -> "What would make TidyTV better?"
+                            FeedbackKind.FEATURE -> "What would make CleanYourTV better?"
                             FeedbackKind.QUESTION -> "What would you like to know?"
                         },
                     )
@@ -147,8 +147,8 @@ fun FeedbackSheet(
                 TickBox(includeLog)
                 Spacer(Modifier.width(12.dp))
                 Column(Modifier.weight(1f)) {
-                    Text("Include the TidyTV log", style = MaterialTheme.typography.titleMedium, color = Tidy.Ink)
-                    Text("What TidyTV did on your TV. Serial numbers, Wi-Fi names and IP addresses are removed.", style = MaterialTheme.typography.bodyMedium, color = Tidy.Muted)
+                    Text("Include the CleanYourTV log", style = MaterialTheme.typography.titleMedium, color = Tidy.Ink)
+                    Text("What CleanYourTV did on your TV. Serial numbers, Wi-Fi names and IP addresses are removed.", style = MaterialTheme.typography.bodyMedium, color = Tidy.Muted)
                 }
             }
             if (screenshot == null) {
@@ -173,7 +173,7 @@ fun FeedbackSheet(
                 enabled = message.isNotBlank() && state != "sending",
             )
             Text(
-                "Your phone model, Android version and TidyTV version are sent with your message. Screenshots are deleted after 30 days.",
+                "Your phone model, Android version and CleanYourTV version are sent with your message. Screenshots are deleted after 30 days.",
                 style = MaterialTheme.typography.bodySmall, color = Tidy.Muted,
             )
         }
@@ -203,13 +203,13 @@ fun ShareCardDialog(card: Bitmap, onShare: () -> Unit, onStar: () -> Unit, onTel
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Image(
-                card.asImageBitmap(), "Your TidyTV card: how many apps you turned off.",
+                card.asImageBitmap(), "Your CleanYourTV card: how many apps you turned off.",
                 Modifier.fillMaxWidth().clip(RoundedCornerShape(18.dp)).border(2.dp, Tidy.Ink, RoundedCornerShape(18.dp)),
                 contentScale = ContentScale.FillWidth,
             )
-            Body("Show your friends how you tidied your TV. TidyTV is free, so sharing is how people find it.", align = androidx.compose.ui.text.style.TextAlign.Center)
+            Body("Show your friends how you tidied your TV. CleanYourTV is free, so sharing is how people find it.", align = androidx.compose.ui.text.style.TextAlign.Center)
             BigButton("Share my card", onShare, color = Tidy.Blue)
-            BigButton("Star TidyTV on GitHub", onStar, color = Color.White, textColor = Tidy.Ink, leading = { androidx.compose.material3.Icon(androidx.compose.material.icons.Icons.Rounded.Star, null, tint = Tidy.Ink) })
+            BigButton("Star CleanYourTV on GitHub", onStar, color = Color.White, textColor = Tidy.Ink, leading = { androidx.compose.material3.Icon(androidx.compose.material.icons.Icons.Rounded.Star, null, tint = Tidy.Ink) })
             Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                 TextLink("Tell us what you liked", onTellUs)
                 TextLink("Not now", onDismiss, color = Tidy.Muted)

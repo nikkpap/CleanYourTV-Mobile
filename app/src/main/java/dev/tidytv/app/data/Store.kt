@@ -13,7 +13,7 @@ import java.io.File
 data class KnownTv(val serial: String, val title: String, val model: String, val host: String, val lastSeen: Long)
 
 /**
- * Everything TidyTV keeps on the phone:
+ * Everything CleanYourTV keeps on the phone:
  *   keys/adbkey.pem                 ADB identity ("Always allow" sticks)
  *   tvs/<serial>/backup-<ts>.json   taken before any change
  *   tvs/<serial>/actions.jsonl      append-only change log, drives Restore

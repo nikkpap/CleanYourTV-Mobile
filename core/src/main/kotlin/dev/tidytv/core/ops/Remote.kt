@@ -1,6 +1,6 @@
 package dev.tidytv.core.ops
 
-/** The buttons on TidyTV's remote, as Android key codes. */
+/** The buttons on CleanYourTV's remote, as Android key codes. */
 enum class RemoteKey(val code: String) {
     UP("KEYCODE_DPAD_UP"), DOWN("KEYCODE_DPAD_DOWN"), LEFT("KEYCODE_DPAD_LEFT"), RIGHT("KEYCODE_DPAD_RIGHT"),
     OK("KEYCODE_DPAD_CENTER"), BACK("KEYCODE_BACK"), HOME("KEYCODE_HOME"), MENU("KEYCODE_MENU"),
@@ -39,7 +39,7 @@ object RemoteParse {
 }
 
 /**
- * A phone remote over the same connection TidyTV already has: works on any Android TV and on
+ * A phone remote over the same connection CleanYourTV already has: works on any Android TV and on
  * Fire TV. Keys go through a kept-open shell when the connection allows it (a write per press),
  * else one command each. [TvConnectionLost] means the caller should reconnect.
  */

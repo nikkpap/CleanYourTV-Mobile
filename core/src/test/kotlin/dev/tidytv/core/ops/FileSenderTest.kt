@@ -14,8 +14,8 @@ class FileSenderTest {
         val data = bytes(5000)
         val progress = mutableListOf<Long>()
         val out = FileSender(tv).send("Holiday photo.jpg", data.size.toLong(), { data.inputStream() }, mutableSetOf()) { progress += it }
-        assertEquals(SendResult.Sent("/sdcard/Download/TidyTV/Holiday photo.jpg"), out)
-        assertTrue(data.contentEquals(tv.pushed["/sdcard/Download/TidyTV/Holiday photo.jpg"]))
+        assertEquals(SendResult.Sent("/sdcard/Download/CleanYourTV/Holiday photo.jpg"), out)
+        assertTrue(data.contentEquals(tv.pushed["/sdcard/Download/CleanYourTV/Holiday photo.jpg"]))
         assertEquals(5000L, progress.last())
     }
 
@@ -27,14 +27,14 @@ class FileSenderTest {
         val taken2 = sender.takenNames().toMutableSet()
         assertEquals(setOf("a.mp4"), taken2)
         val out = sender.send("a.mp4", 10, { bytes(10).inputStream() }, taken2)
-        assertEquals(SendResult.Sent("/sdcard/Download/TidyTV/a (2).mp4"), out)
+        assertEquals(SendResult.Sent("/sdcard/Download/CleanYourTV/a (2).mp4"), out)
     }
 
     @Test fun unsafeNamesAreCleaned() = runTest {
         val tv = FakeTv.googleTv()
         val out = FileSender(tv).send("../../etc/'evil'.apk", 3, { bytes(3).inputStream() }, mutableSetOf()) as SendResult.Sent
-        val name = out.remotePath.removePrefix("/sdcard/Download/TidyTV/")
-        assertTrue(out.remotePath, out.remotePath.startsWith("/sdcard/Download/TidyTV/") && '/' !in name && '\'' !in name && !name.startsWith("."))
+        val name = out.remotePath.removePrefix("/sdcard/Download/CleanYourTV/")
+        assertTrue(out.remotePath, out.remotePath.startsWith("/sdcard/Download/CleanYourTV/") && '/' !in name && '\'' !in name && !name.startsWith("."))
     }
 
     @Test fun tooBigForTheTvIsRefusedBeforeSending() = runTest {

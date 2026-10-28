@@ -12,11 +12,12 @@ android {
     compileSdk = 37
 
     defaultConfig {
-        applicationId = "com.appfactory.tidytv"
+        // Its own id, so it installs next to TidyTV instead of over it.
+        applicationId = "com.nikkpap.cleanyourtv"
         minSdk = 26
         targetSdk = 36
-        versionCode = 10
-        versionName = "0.8.1"
+        versionCode = 1
+        versionName = "1.0.0"
     }
 
     // Release signing comes from keys/signing.properties, a git-ignored folder in the repo.
@@ -71,6 +72,10 @@ val copyThemes by tasks.registering(Copy::class) {
     from(rootProject.file("upstream/cleanyourtv/themes")) {
         include("default/**", "aurora/**", "glass/**", "scenes/**")
         exclude("**/*.md")
+    }
+    // CleanYourTV's own looks (themes/ in this repository; wallpapers drawn by themes/make_themes.py).
+    from(rootProject.file("themes")) {
+        include("*/config.json", "*/wallpaper.jpg", "*/screenshot.jpg", "*/wallpapers/**")
     }
     into(layout.buildDirectory.dir("generated/lists/themes"))
 }

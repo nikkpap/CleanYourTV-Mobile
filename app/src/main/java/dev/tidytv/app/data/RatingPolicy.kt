@@ -9,7 +9,7 @@ import java.io.File
 data class RatingState(val asks: Int = 0, val lastAskAt: Long = 0, val done: Boolean = false)
 
 /**
- * When to ask "Enjoying TidyTV?". Rarely and at a good moment: right after a clean-up that really turned
+ * When to ask "Enjoying CleanYourTV?". Rarely and at a good moment: right after a clean-up that really turned
  * something off. At most two automatic asks per install, 30 days apart; never again once the person rated or
  * went to feedback ("Maybe later" counts as an ask used).
  */

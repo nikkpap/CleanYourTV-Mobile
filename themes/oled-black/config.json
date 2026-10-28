@@ -1,0 +1,15 @@
+{
+  "background_color": "#000000",
+  "wallpaper": false,
+  "sky_intensity": 0,
+  "ambient_glow": false,
+  "glass_style": "rim",
+  "dock_row": true,
+  "dock_opacity": 100,
+  "top_menu": true,
+  "header_white": true,
+  "show_greeting": false,
+  "clock_glow": false,
+  "focus_overshoot": false,
+  "reduced_motion": true
+}

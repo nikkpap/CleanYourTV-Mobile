@@ -36,7 +36,7 @@ class Discovery(private val context: Context, private val trace: (String) -> Uni
 
     fun scan(): Flow<FoundTv> = callbackFlow {
         val wifi = context.applicationContext.getSystemService(WifiManager::class.java)
-        val lock = wifi?.createMulticastLock("TidyTV")?.apply { setReferenceCounted(false); runCatching { acquire() } }
+        val lock = wifi?.createMulticastLock("CleanYourTV")?.apply { setReferenceCounted(false); runCatching { acquire() } }
         val listeners = mutableListOf<NsdManager.DiscoveryListener>()
 
         fun browse(type: String, toTv: (NsdServiceInfo) -> FoundTv?) {

@@ -28,7 +28,7 @@ class WinkleFeedbackTest {
 
     @Test fun payloadHasEveryRequiredField() {
         val p = feedback(FakeHttp(302)).payload(FeedbackDraft(FeedbackKind.BUG, "  It stopped at step 2  ", page = "tidy"))
-        assertEquals("TidyTV", p.getString("app"))
+        assertEquals("CleanYourTV", p.getString("app"))
         assertEquals("bug", p.getString("type"))
         assertEquals("It stopped at step 2", p.getString("feedback"))
         assertEquals("android", p.getString("platform"))
@@ -44,7 +44,7 @@ class WinkleFeedbackTest {
 
     @Test fun logGoesIntoTheMessageAndScreenshotIsBase64() {
         val p = feedback(FakeHttp(302)).payload(FeedbackDraft(FeedbackKind.BUG, "hi", log = "connect 10.0.0.x", screenshot = byteArrayOf(1, 2, 3)))
-        assertTrue(p.getString("feedback").startsWith("hi\n\n--- TidyTV log ---\nconnect"))
+        assertTrue(p.getString("feedback").startsWith("hi\n\n--- CleanYourTV log ---\nconnect"))
         assertEquals("AQID", p.getString("screenshot_base64"))
     }
 

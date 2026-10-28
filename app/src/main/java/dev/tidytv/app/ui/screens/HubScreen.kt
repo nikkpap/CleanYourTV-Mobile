@@ -32,6 +32,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.CleaningServices
 import androidx.compose.material.icons.rounded.Home
+import androidx.compose.material.icons.rounded.Inventory2
 import androidx.compose.material.icons.rounded.Restore
 import androidx.compose.material.icons.rounded.Shield
 import androidx.compose.material.icons.rounded.SettingsRemote
@@ -66,6 +67,7 @@ fun HubScreen(
     onCheck: () -> Unit = {},
     onSpace: () -> Unit = {},
     onAds: () -> Unit = {},
+    onProfile: () -> Unit = {},
 ) {
     val items = buildList {
         add(HubItem(Icons.Rounded.CleaningServices, "Tidy up", Tidy.Blue, Color.White, if (appsOff > 0) "$appsOff off" else null, onTidy))
@@ -75,6 +77,7 @@ fun HubScreen(
         add(HubItem(Icons.Rounded.TaskAlt, "Check my TV", Tidy.Yellow, Tidy.Ink, onClick = onCheck))
         add(HubItem(Icons.Rounded.Storage, "Free up space", Tidy.Green, Color.White, onClick = onSpace))
         add(HubItem(Icons.Rounded.Shield, "Block ads", Tidy.Purple, Color.White, onClick = onAds))
+        add(HubItem(Icons.Rounded.Inventory2, "My profile", Tidy.Blue, Color.White, onClick = onProfile))
         add(HubItem(Icons.Rounded.Restore, "Restore", Tidy.Grey, Tidy.Ink, onClick = onRestore))
     }
     ScreenFrame(top = { Row(Modifier.fillMaxWidth()) { TextLink("Change TV", onBack, icon = Icons.AutoMirrored.Rounded.ArrowBack) } }) {
@@ -93,7 +96,7 @@ fun HubScreen(
         }
         val actions = dev.tidytv.app.ui.LocalAppActions.current
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-            TextLink("Rate TidyTV", { actions.rate() }, color = Tidy.Muted, small = true)
+            TextLink("Rate CleanYourTV", { actions.rate() }, color = Tidy.Muted, small = true)
         }
     }
 }

@@ -76,7 +76,7 @@ data class ReviewState(
     val exact: Boolean = false,
     val candidates: List<Candidate> = emptyList(),
     val selected: Set<String> = emptySet(),
-    /** Installed apps the list mentions that TidyTV will always leave on. */
+    /** Installed apps the list mentions that CleanYourTV will always leave on. */
     val kept: List<String> = emptyList(),
     /** No list matches this TV: backup only, nothing to turn off. */
     val noList: Boolean = false,
@@ -153,7 +153,7 @@ sealed interface HomeState {
         val available: List<HomeApp> = listOf(HomeApp.SIMPLE),
         /** The Apple TV style home screen is already Home, so its look can be changed. */
         val styledIsHome: Boolean = false,
-        /** The TV's home app is one TidyTV hasn't tested: no change is offered, only a one-line card. */
+        /** The TV's home app is one CleanYourTV hasn't tested: no change is offered, only a one-line card. */
         val untested: Boolean = false,
     ) : HomeState
     data object Running : HomeState
@@ -165,12 +165,20 @@ sealed interface HomeState {
     data class Look(val look: LookState, val back: HomeState? = null) : HomeState
 }
 
-/** The looks TidyTV ships for the Apple TV style home screen (cleanyourtv themes/, MIT). */
+/** The looks CleanYourTV ships for the Apple TV style home screen (cleanyourtv themes/, MIT). */
 enum class LookId(val id: String, val title: String, val blurb: String) {
     CLASSIC("default", "Classic", "Black and simple, the way it comes."),
     AURORA("aurora", "Aurora", "A dark night sky with teal and violet light."),
     GLASS("glass", "Glass", "A frosted dock, soft light and a glow in each app's colour."),
     SCENES("scenes", "Scenes", "14 painted landscapes, a new one every hour."),
+    // CleanYourTV's own looks (themes/ in this repository).
+    ELLADA("ellada", "Ellada", "Olympus in the morning, Meteora in the evening, the Aegean at night."),
+    AEGEAN("aegean-night", "Aegean night", "The moon over the sea, white houses and a blue dome."),
+    METEORA("meteora-dusk", "Meteora dusk", "Rock towers and a monastery under a violet sky."),
+    OLYMPUS("olympus-mist", "Olympus mist", "Misty ridges before dawn, names under every app."),
+    NEON("neon-grid", "Neon grid", "A striped sunset over a pink neon grid."),
+    OLED("oled-black", "OLED black", "Pure black, one gear for Inputs, Wi-Fi and Settings."),
+    FULL_BLACK("full-black", "Full black", "Black everywhere, calm motion, App library and a CPU line."),
 }
 
 data class LookState(
@@ -257,6 +265,27 @@ data class FilesState(val items: List<SendItem> = emptyList(), val freeBytes: Lo
     val busy get() = items.any { it.status == SendStatus.SENDING || it.status == SendStatus.WAITING }
 }
 
+/** "My profile": a profile from CleanYourTV for Windows, picked on the phone and put on this TV. */
+data class ProfileState(
+    val loading: Boolean = false,
+    val fileName: String? = null,
+    val name: String? = null,
+    /** Where it was saved from, e.g. "TV Box, Android 14, 2026-10-24 17:05". */
+    val from: String? = null,
+    val packages: Int = 0,
+    val apps: Int = 0,
+    val skippedApps: List<String> = emptyList(),
+    val hasTheme: Boolean = false,
+    val settingGroups: List<String> = emptyList(),
+    /** The parts the person wants: "apps", "packages", "theme", "dns", "anim", "dream". */
+    val parts: Set<String> = emptySet(),
+    /** The Apple TV style home screen (CleanYourTV's launcher) is Home, so the look can go on. */
+    val styledHome: Boolean = false,
+    val running: Boolean = false,
+    val lines: List<String> = emptyList(),
+    val message: RestoreUi.Finished? = null,
+)
+
 data class UiState(
     val wizard: Wizard = Wizard(),
     val connect: ConnectState = ConnectState.Scanning(),
@@ -269,7 +298,7 @@ data class UiState(
     val problem: String? = null,
     /** Friendly names from the list notes, so the activity list reads like the review screen. */
     val labels: Map<String, String> = emptyMap(),
-    /** A newer TidyTV on GitHub, shown as a banner on the Welcome screen. */
+    /** A newer CleanYourTV on GitHub, shown as a banner on the Welcome screen. */
     val update: dev.tidytv.app.data.UpdateInfo? = null,
     /** TVs this phone has connected to, newest first, for one-tap reconnect on Welcome. */
     val savedTvs: List<dev.tidytv.app.data.KnownTv> = emptyList(),
@@ -278,6 +307,7 @@ data class UiState(
     val check: CheckState = CheckState(),
     val space: SpaceState = SpaceState(),
     val ads: AdsState = AdsState(),
+    val profile: ProfileState = ProfileState(),
     val rescue: RescueState = RescueState(),
     /** The real app icons read from the TV, as PNG files on the phone, by package. */
     val icons: Map<String, String> = emptyMap(),
@@ -306,6 +336,8 @@ class WizardViewModel(
     private val photoWallpaper: (PickedFile) -> dev.tidytv.app.data.WallpaperImage? = { null },
     /** Where photos are decoded and shrunk; tests pass their own. */
     private val imageWork: kotlinx.coroutines.CoroutineDispatcher = kotlinx.coroutines.Dispatchers.Default,
+    /** Where a picked profile's apps are unpacked before they go to the TV. */
+    private val profileCache: File = File(System.getProperty("java.io.tmpdir") ?: "."),
 ) : ViewModel() {
     private val _ui = MutableStateFlow(UiState())
     val ui: StateFlow<UiState> = _ui.asStateFlow()
@@ -362,6 +394,7 @@ class WizardViewModel(
             Step.CHECK -> recheck()
             Step.SPACE -> enterSpace()
             Step.ADS -> enterAds()
+            Step.PROFILE -> enterProfile()
             Step.RESCUE -> Unit
             else -> Unit
         }
@@ -380,6 +413,7 @@ class WizardViewModel(
     fun openCheck() = wizard(WizardEvent.OpenCheck)
     fun openSpace() = wizard(WizardEvent.OpenSpace)
     fun openAds() = wizard(WizardEvent.OpenAds)
+    fun openProfile() = wizard(WizardEvent.OpenProfile)
 
     private var pendingSaved: FoundTv? = null
 
@@ -466,7 +500,7 @@ class WizardViewModel(
         } catch (e: Exception) {
             if (e is kotlinx.coroutines.CancellationException) throw e
             trace.line("snapshot failed: $e")
-            _ui.update { it.copy(problem = "Connected, but the TV didn't answer the way TidyTV expected. Tap Share logs so we can fix it.") }
+            _ui.update { it.copy(problem = "Connected, but the TV didn't answer the way CleanYourTV expected. Tap Share logs so we can fix it.") }
             return
         }
         snapshot = snap
@@ -676,7 +710,7 @@ class WizardViewModel(
 
     /**
      * The reboot test: restart the TV, wait for it to come back (up to 3 min), then check that
-     * everything TidyTV turned off is still off and Home is still right.
+     * everything CleanYourTV turned off is still off and Home is still right.
      */
     fun rebootTest() {
         val b = backend ?: return
@@ -726,7 +760,7 @@ class WizardViewModel(
 
     /**
      * For a TV stuck after a change: keep trying the saved TV every 5 s for up to 10 minutes, and the
-     * moment it answers, turn everything TidyTV changed back on (the undo list on the TV is enough).
+     * moment it answers, turn everything CleanYourTV changed back on (the undo list on the TV is enough).
      */
     fun startRescue(saved: dev.tidytv.app.data.KnownTv) {
         wizard(WizardEvent.OpenRescue)
@@ -746,7 +780,7 @@ class WizardViewModel(
                     val out = runCatching { tvLock.withLock { Restorer(link.shell, lg).run() } }.getOrNull()
                     trace.line("rescue: $out")
                     val msg = when (out) {
-                        is RestoreOutcome.Done -> RestoreUi.Finished("Your TV answered and everything TidyTV changed is back on. Restart the TV if it still looks stuck.", ok = true)
+                        is RestoreOutcome.Done -> RestoreUi.Finished("Your TV answered and everything CleanYourTV changed is back on. Restart the TV if it still looks stuck.", ok = true)
                         is RestoreOutcome.Partial -> RestoreUi.Finished("${out.stillOff.size} apps wouldn't turn back on. Tap Try again.", ok = false)
                         else -> RestoreUi.Finished("The TV dropped off again. Tap Try again.", ok = false)
                     }
@@ -784,7 +818,7 @@ class WizardViewModel(
         }
     }
 
-    /** Queues picked files and sends them one at a time into Downloads › TidyTV on the TV. */
+    /** Queues picked files and sends them one at a time into Downloads › CleanYourTV on the TV. */
     fun sendFiles(picked: List<PickedFile>) {
         if (picked.isEmpty()) return
         val items = picked.map { p -> SendItem(nextFileId++, p.name, p.size) }
@@ -914,7 +948,7 @@ class WizardViewModel(
                 val s = shell ?: return@launch
                 val apk = tvLock.withLock { ApkFetcher(s).fetch(pkg) }
                 if (apk == null) { trace.line("icon $pkg: no small APK on the TV"); continue }
-                // The app's own name, when TidyTV has no better one: "TGuard" beats "Tcl guard".
+                // The app's own name, when CleanYourTV has no better one: "TGuard" beats "Tcl guard".
                 if (!dev.tidytv.core.lists.AppLabels.known(pkg)) labelFromApk?.let { read ->
                     runCatching { read(pkg, apk) }.getOrNull()?.takeIf { n -> n.isNotBlank() && !n.contains('.') && n.length <= 40 }
                         ?.let { name -> _ui.update { it.copy(labels = it.labels + (pkg to name)) } }
@@ -1002,6 +1036,139 @@ class WizardViewModel(
     fun closeAllApps() = _ui.update { it.copy(review = it.review.copy(all = null)) }
 
     fun setUninstall(on: Boolean) = _ui.update { it.copy(review = it.review.copy(uninstall = on)) }
+
+    // ---------- My profile (CleanYourTV) ----------
+
+    private var imported: dev.tidytv.app.data.ImportedProfile? = null
+
+    private fun enterProfile() {
+        _ui.update { it.copy(profile = it.profile.copy(running = false, lines = emptyList(), message = null)) }
+        viewModelScope.launch {
+            val home = withShell { s -> dev.tidytv.core.ops.Parse.component(s.run(dev.tidytv.core.ops.Commands.RESOLVE_HOME)) }
+            _ui.update { it.copy(profile = it.profile.copy(styledHome = home?.substringBefore('/') == HomeApp.STYLED.pkg)) }
+        }
+    }
+
+    /** Reads a .cytv or a bundle .zip picked on the phone; nothing reaches the TV until Apply. */
+    fun pickProfile(file: PickedFile) {
+        if (_ui.value.profile.running) return
+        val styled = _ui.value.profile.styledHome
+        _ui.update { it.copy(profile = ProfileState(loading = true, fileName = file.name, styledHome = styled)) }
+        viewModelScope.launch {
+            val r = withContext(kotlinx.coroutines.Dispatchers.IO) {
+                runCatching { dev.tidytv.app.data.ProfileImport.read(file.open, profileCache) }
+            }
+            trace.line("profile ${file.name}: ${r.exceptionOrNull()?.message ?: "read"}")
+            val imp = r.getOrNull()
+            imported = imp
+            if (imp == null) {
+                _ui.update { it.copy(profile = ProfileState(fileName = file.name, styledHome = styled, message = RestoreUi.Finished(
+                    "That isn't a CleanYourTV profile (a .cytv, or a .zip saved with Save profile + apps). " +
+                        (r.exceptionOrNull()?.message ?: ""), ok = false))) }
+                return@launch
+            }
+            val p = imp.profile
+            val installed = snapshot?.installed.orEmpty()
+            val disabledNow = snapshot?.disabled.orEmpty()
+            val todo = p.disabled.count { it in installed && it !in disabledNow }
+            val groups = dev.tidytv.core.ops.CytProfiles.SETTINGS.filter { (_, keys) -> keys.any { it in p.settings } }.keys.toList()
+            val parts = buildSet {
+                if (imp.apps.isNotEmpty()) add("apps")
+                if (todo > 0) add("packages")
+                if (p.theme != null) add("theme")
+                addAll(groups)
+            }
+            _ui.update { it.copy(profile = ProfileState(
+                fileName = file.name, name = p.name,
+                from = listOfNotNull(p.model, p.android?.let { a -> "Android $a" }, p.created.ifEmpty { null }).joinToString(", "),
+                packages = todo, apps = imp.apps.size, skippedApps = imp.skippedApps, hasTheme = p.theme != null,
+                settingGroups = groups, parts = parts, styledHome = styled,
+            )) }
+        }
+    }
+
+    fun toggleProfilePart(part: String) = _ui.update {
+        val s = it.profile
+        if (s.running) it else it.copy(profile = s.copy(parts = if (part in s.parts) s.parts - part else s.parts + part))
+    }
+
+    /**
+     * Puts the picked profile on the TV, in the order CleanYourTV for Windows uses: a backup, the apps, the packages
+     * (through the Debloater: the same protected list, undo list and checks as Tidy up), the look, then the settings.
+     * Stops at the first thing that goes wrong; Restore undoes all of it.
+     */
+    fun applyProfile() {
+        val imp = imported ?: return
+        val st = _ui.value.profile
+        if (st.running || st.parts.isEmpty()) return
+        val snap = snapshot ?: return
+        val lg = log ?: return
+        val parts = st.parts
+        fun line(t: String) = _ui.update { it.copy(profile = it.profile.copy(lines = it.profile.lines + t)) }
+        _ui.update { it.copy(profile = it.profile.copy(running = true, lines = emptyList(), message = null)) }
+        wizard(WizardEvent.Busy(true))
+        viewModelScope.launch {
+            var ok = true
+            try {
+                line("Saving a backup first…")
+                val saved = withShell { s -> TvReader.backup(s, snap, System.currentTimeMillis()) }
+                if (saved == null) { ok = false; line("The TV stopped answering."); return@launch }
+                withContext(kotlinx.coroutines.Dispatchers.IO) { store.saveBackup(saved) }
+
+                if ("apps" in parts) for ((i, f) in imp.apps.withIndex()) {
+                    line("Installing app ${i + 1} of ${imp.apps.size}: ${f.name}")
+                    val err = withShell { s -> f.inputStream().use { input -> dev.tidytv.core.ops.ProfileApplier(s, lg).installApp(input, f.length()) } }
+                    if (err == null) { ok = false; line("The TV stopped answering."); return@launch }
+                    if (err.isNotEmpty()) line("  ${f.name} wasn't installed: $err")
+                }
+
+                if ("packages" in parts) {
+                    val pkgs = imp.profile.disabled
+                    line("Turning off ${st.packages} apps, a few at a time…")
+                    val outcome = withShell { s ->
+                        Debloater(s, lg).run(pkgs, snap.liveProtected, list?.keep.orEmpty())
+                    }
+                    when (outcome) {
+                        null -> { ok = false; line("The TV stopped answering."); return@launch }
+                        is DebloatOutcome.Finished -> line("${outcome.disabledCount} apps turned off; ${outcome.results.count { it is PkgResult.Skipped }} kept on by the safety checks.")
+                        is DebloatOutcome.Stopped -> { ok = false; line(outcome.reason); return@launch }
+                        is DebloatOutcome.Disconnected -> { ok = false; line("The TV stopped answering. Everything done so far is saved, and Restore puts it back."); return@launch }
+                    }
+                }
+
+                if ("theme" in parts) {
+                    val look = imp.profile.theme
+                    if (look != null && st.styledHome) {
+                        line("Putting the look on the home screen…")
+                        val put = withShell { s -> dev.tidytv.core.ops.LauncherLook(s).apply(look) } == true
+                        line(if (put) "The look is on." else "The TV didn't take the look.")
+                    } else if (look != null) {
+                        line("The look needs the Apple TV style home screen: put it on from Home screen, then apply the profile again.")
+                    }
+                }
+
+                val groups = parts intersect dev.tidytv.core.ops.CytProfiles.SETTINGS.keys
+                if (groups.isNotEmpty()) {
+                    val n = withShell { s -> dev.tidytv.core.ops.ProfileApplier(s, lg).settings(imp.profile, groups, st.styledHome) }
+                    line(if (n == null) "The TV stopped answering." else "$n settings set.")
+                    if (n == null) ok = false
+                }
+            } catch (e: Exception) {
+                ok = false
+                trace.line("profile apply: $e")
+                line("Stopped: ${e.message ?: e::class.simpleName}")
+            } finally {
+                runCatching { withShell { s -> snapshot = TvReader.snapshot(s) } }
+                _ui.update { it.copy(
+                    profile = it.profile.copy(running = false, message = RestoreUi.Finished(
+                        if (ok) "Done: this TV is set up like ${imp.profile.name}. Restore puts it all back." else
+                            "Not everything went on. What did is saved, and Restore puts it back.", ok = ok)),
+                    done = it.done.copy(records = lg.records()),
+                ) }
+                wizard(WizardEvent.Busy(false))
+            }
+        }
+    }
 
     // ---------- Block ads ----------
 
@@ -1115,7 +1282,7 @@ class WizardViewModel(
         while (true) {
             val s = shell ?: if (reconnect()) shell!! else null
             if (s == null) {
-                _ui.update { it.copy(tidy = it.tidy.copy(reconnecting = false, stopReason = "TidyTV lost the connection to your TV and couldn't get it back. Everything done so far is saved, and Restore puts it back.")) }
+                _ui.update { it.copy(tidy = it.tidy.copy(reconnecting = false, stopReason = "CleanYourTV lost the connection to your TV and couldn't get it back. Everything done so far is saved, and Restore puts it back.")) }
                 wizard(WizardEvent.TidyEnded(stopped = true, launcherPossible = false))
                 return
             }
@@ -1165,7 +1332,7 @@ class WizardViewModel(
         return homePkg in Launchers.KNOWN_STOCK || homePkg == "android"
     }
 
-    /** Home is a stock launcher TidyTV has tested, or already one of its own home screens. */
+    /** Home is a stock launcher CleanYourTV has tested, or already one of its own home screens. */
     private fun homeTested(): Boolean {
         val homePkg = snapshot?.home?.substringBefore('/') ?: return false
         return homePkg in Launchers.KNOWN_STOCK || homePkg == "android" || HomeApp.of(homePkg) != null
@@ -1203,7 +1370,7 @@ class WizardViewModel(
 
     fun applyLook(id: LookId) {
         val files = if (id == LookId.CLASSIC) dev.tidytv.core.ops.LookFiles("default", "{}") else looks(id.id)
-        if (files == null) return setLook { it.copy(message = RestoreUi.Finished("That look isn't in this copy of TidyTV.", ok = false)) }
+        if (files == null) return setLook { it.copy(message = RestoreUi.Finished("That look isn't in this copy of CleanYourTV.", ok = false)) }
         putLook(id.id, "${id.title} is on your TV.") { files }
     }
 
@@ -1260,7 +1427,7 @@ class WizardViewModel(
 
     fun installHome() {
         val offer = _ui.value.home as? HomeState.Offer
-        if (offer?.untested == true) return // never change Home on a launcher TidyTV hasn't tested
+        if (offer?.untested == true) return // never change Home on a launcher CleanYourTV hasn't tested
         lastDock = offer?.chosen ?: lastDock
         lastApp = offer?.app ?: lastApp
         val dock = lastDock
@@ -1330,7 +1497,7 @@ class WizardViewModel(
         WraithCheck.OwnsWifi -> "Your TV's saved Wi-Fi belongs to Google TV's setup app, so turning that app off would drop the TV off Wi-Fi. Your old home screen stays. If your TV uses a network cable instead, tick the box below and try again."
         WraithCheck.SetupIncomplete -> "Your TV hasn't finished its first setup, so Google TV's setup app has to stay on. Your old home screen stays."
         WraithCheck.Persistent -> "Google TV's setup app can't be turned off on this TV, so the Home button would keep going to it. Your old home screen stays."
-        is WraithCheck.Unknown -> "TidyTV couldn't check Google TV's setup app safely (${c.why}), so it changed nothing. Your old home screen stays."
+        is WraithCheck.Unknown -> "CleanYourTV couldn't check Google TV's setup app safely (${c.why}), so it changed nothing. Your old home screen stays."
         WraithCheck.Ok -> ""
     }
 
@@ -1371,27 +1538,27 @@ class WizardViewModel(
         HandoverOutcome.NotInstalled -> HomeState.Problem("Projectivy isn't installed yet. Install it from the Play Store on your TV, then try again.", worried = false, action = HomeAction.RETRY)
         is HandoverOutcome.NeedsChoice -> HomeState.Problem(
             "Your TV has another home screen app installed (${o.claimants.filterNot { it in Launchers.KNOWN_STOCK || it == Launchers.SETUPWRAITH || it == "com.android.tv.settings" }.joinToString { c -> _ui.value.labels[c] ?: dev.tidytv.core.lists.AppLabels.label(c) }.ifBlank { "more than one" }}). " +
-                "Android would ask which to use every time you press Home, so TidyTV changed nothing. Remove the other one first, or keep your current home screen.",
+                "Android would ask which to use every time you press Home, so CleanYourTV changed nothing. Remove the other one first, or keep your current home screen.",
             worried = false,
         )
         is HandoverOutcome.SetupAppBlocked -> HomeState.Problem(
             setupAppMessage(o.check), worried = false,
             action = if (o.check == WraithCheck.OwnsWifi) HomeAction.TURN_OFF_SETUP_APP else null,
         )
-        is HandoverOutcome.UnknownHome -> HomeState.Problem("Your TV uses a home screen TidyTV doesn't know, so it left Home alone.", worried = false)
+        is HandoverOutcome.UnknownHome -> HomeState.Problem("Your TV uses a home screen CleanYourTV doesn't know, so it left Home alone.", worried = false)
         HandoverOutcome.SignatureConflict -> HomeState.Problem(
-            "Another copy of this home screen is already on your TV. Replace it with TidyTV's?", worried = false, action = HomeAction.REPLACE_COPY,
+            "Another copy of this home screen is already on your TV. Replace it with CleanYourTV's?", worried = false, action = HomeAction.REPLACE_COPY,
         )
         is HandoverOutcome.InstallBlocked -> HomeState.Problem("This TV doesn't allow extra home screens. The clean-up still worked.", worried = false)
         is HandoverOutcome.InstallFailed -> HomeState.Problem("The home screen didn't install, so nothing about Home changed.", worried = false, action = HomeAction.RETRY)
-        is HandoverOutcome.StartFailed -> HomeState.Problem("The new home screen didn't open, so TidyTV left your old one on.", worried = false, action = HomeAction.RETRY)
+        is HandoverOutcome.StartFailed -> HomeState.Problem("The new home screen didn't open, so CleanYourTV left your old one on.", worried = false, action = HomeAction.RETRY)
         is HandoverOutcome.SetupWraithTookHome -> HomeState.Problem(
-            if (o.rolledBack) "Google TV's setup app took the Home button once the old home screen was off, so TidyTV put everything back. Tap try again: it turns the setup app off first this time."
+            if (o.rolledBack) "Google TV's setup app took the Home button once the old home screen was off, so CleanYourTV put everything back. Tap try again: it turns the setup app off first this time."
             else "Google TV's setup app grabbed Home and putting your old home screen back didn't finish. Tap Restore everything.",
             worried = !o.rolledBack, action = if (o.rolledBack) HomeAction.TURN_OFF_SETUP_APP else null,
         )
         is HandoverOutcome.RolledBack -> HomeState.Problem(
-            "The new home screen opened, but the Home button still went to ${o.homeNow?.substringBefore('/')?.let { _ui.value.labels[it] ?: dev.tidytv.core.lists.AppLabels.label(it) } ?: "another app"}, so TidyTV put your old home screen back. Share logs if this keeps happening.",
+            "The new home screen opened, but the Home button still went to ${o.homeNow?.substringBefore('/')?.let { _ui.value.labels[it] ?: dev.tidytv.core.lists.AppLabels.label(it) } ?: "another app"}, so CleanYourTV put your old home screen back. Share logs if this keeps happening.",
             worried = false, action = HomeAction.RETRY,
         )
         is HandoverOutcome.RollbackFailed -> HomeState.Problem(
@@ -1462,7 +1629,7 @@ class WizardViewModel(
                     )
                 }
                 is RestoreOutcome.Partial -> RestoreUi.Finished(
-                    "${outcome.stillOff.size} apps wouldn't turn back on, so TidyTV kept your current home screen. Tap Restore everything again.", ok = false,
+                    "${outcome.stillOff.size} apps wouldn't turn back on, so CleanYourTV kept your current home screen. Tap Restore everything again.", ok = false,
                 )
                 else -> RestoreUi.Finished("The TV stopped answering. Check it's on and on the same network, then tap Restore everything again.", ok = false)
             }
@@ -1471,7 +1638,7 @@ class WizardViewModel(
         }
     }
 
-    /** Turns one app TidyTV turned off back on, leaving everything else as it is (GitHub #2). */
+    /** Turns one app CleanYourTV turned off back on, leaving everything else as it is (GitHub #2). */
     fun turnOn(pkg: String) {
         val lg = log ?: return
         val d = _ui.value.done
@@ -1503,7 +1670,7 @@ class WizardViewModel(
     fun exportLogs(dir: File, appVersion: String): File {
         val tv = _ui.value.tv
         val header = buildString {
-            appendLine("TidyTV $appVersion on Android ${android.os.Build.VERSION.RELEASE} (SDK ${android.os.Build.VERSION.SDK_INT})")
+            appendLine("CleanYourTV $appVersion on Android ${android.os.Build.VERSION.RELEASE} (SDK ${android.os.Build.VERSION.SDK_INT})")
             if (tv != null) appendLine("TV: ${tv.model}, Android ${tv.release} (SDK ${tv.sdk}), list: ${list?.id ?: "none"}")
             appendLine("step: ${_ui.value.wizard.step}, connect: ${_ui.value.connect::class.simpleName}")
         }

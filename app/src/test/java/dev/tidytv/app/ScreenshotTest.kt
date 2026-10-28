@@ -154,7 +154,7 @@ class ScreenshotTest {
             app = dev.tidytv.core.lists.HomeApp.STYLED, available = dev.tidytv.core.lists.HomeApp.entries)))
     @Test fun homeInstalledStyled() = shoot("5e_home_installed_styled", Step.HOME_SCREEN, UiState(home = HomeState.Installed(dev.tidytv.core.lists.HomeApp.STYLED)))
     @Test fun homeSetupApp() = shoot("5d_home_setup_app", Step.HOME_SCREEN, UiState(home = HomeState.Problem(
-        "Google TV's setup app grabbed Home, so TidyTV put your old home screen back. It can turn the setup app off and try again.",
+        "Google TV's setup app grabbed Home, so CleanYourTV put your old home screen back. It can turn the setup app off and try again.",
         worried = false, action = HomeAction.TURN_OFF_SETUP_APP)))
 
     private val records by lazy {
@@ -201,7 +201,7 @@ class ScreenshotTest {
     private val savedTv = dev.tidytv.app.data.KnownTv("abc", "Living room TV", "Chromecast with Google TV", "192.168.1.40", 0)
     @Test fun rescueTrying() = shoot("11_rescue", Step.RESCUE, UiState(rescue = RescueState(savedTv, attempts = 7)))
     @Test fun rescueDone() = shoot("11b_rescue_done", Step.RESCUE, UiState(rescue = RescueState(savedTv, attempts = 12,
-        result = RestoreUi.Finished("Your TV answered and everything TidyTV changed is back on. Restart the TV if it still looks stuck.", ok = true))))
+        result = RestoreUi.Finished("Your TV answered and everything CleanYourTV changed is back on. Restart the TV if it still looks stuck.", ok = true))))
     @Test fun rescueGaveUp() = shoot("11c_rescue_gave_up", Step.RESCUE, UiState(rescue = RescueState(savedTv, attempts = 120, gaveUp = true)))
     @Test fun homeOfferProjectivy() = shoot("5c3_home_offer_projectivy", Step.HOME_SCREEN, UiState(home = HomeState.Offer(
         app = dev.tidytv.core.lists.HomeApp.PROJECTIVY, available = dev.tidytv.core.lists.HomeApp.entries)))

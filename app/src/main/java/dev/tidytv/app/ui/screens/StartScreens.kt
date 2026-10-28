@@ -99,7 +99,7 @@ fun WelcomeScreen(
     }
 }
 
-/** A newer release is out. TidyTV is sideloaded, so this is the only way people hear about it. */
+/** A newer release is out. CleanYourTV is sideloaded, so this is the only way people hear about it. */
 @Composable
 private fun UpdateBanner(update: dev.tidytv.app.data.UpdateInfo, onDismiss: () -> Unit) {
     val actions = dev.tidytv.app.ui.LocalAppActions.current
@@ -110,7 +110,7 @@ private fun UpdateBanner(update: dev.tidytv.app.data.UpdateInfo, onDismiss: () -
         verticalAlignment = Alignment.CenterVertically,
     ) {
         androidx.compose.material3.Text(
-            "TidyTV ${update.version} is out", style = androidx.compose.material3.MaterialTheme.typography.titleMedium, color = Tidy.Ink,
+            "CleanYourTV ${update.version} is out", style = androidx.compose.material3.MaterialTheme.typography.titleMedium, color = Tidy.Ink,
             modifier = Modifier.weight(1f),
         )
         TextLink("Get it", { actions.openUrl(dev.tidytv.app.data.UpdateCheck.SITE_URL) })
@@ -123,7 +123,7 @@ fun UnsupportedScreen(onBack: () -> Unit) {
     ScreenFrame(bottom = { BigButton("Back", onBack, color = Tidy.Blue) }) {
         HeroMascot(worried = true)
         Title("Samsung and LG aren't supported")
-        Body("Samsung TVs run Tizen and LG TVs run webOS. Neither lets a phone switch apps off the way Android TV does, so TidyTV can't help with them.")
+        Body("Samsung TVs run Tizen and LG TVs run webOS. Neither lets a phone switch apps off the way Android TV does, so CleanYourTV can't help with them.")
         Note("If your Samsung or LG has a Chromecast, Fire TV stick or Google TV streamer plugged in, pick that one instead.", color = Tidy.BlueSoft, textColor = Tidy.Ink)
     }
 }
@@ -151,7 +151,7 @@ fun GetReadyScreen(kind: TvKind?, mode: Mode, onReady: () -> Unit) {
             Body("Keep your phone on the same home network as the TV.", color = Tidy.Ink)
             Note("Using a stick powered from the TV's USB port? Plug it into its wall adapter for now, so it doesn't switch off halfway.")
             if (!fire) {
-                Body("Some TVs call Wireless debugging Network debugging or ADB over network instead. With Wireless debugging, TidyTV asks once for the code your TV shows.", color = Tidy.Ink)
+                Body("Some TVs call Wireless debugging Network debugging or ADB over network instead. With Wireless debugging, CleanYourTV asks once for the code your TV shows.", color = Tidy.Ink)
                 Note(
                     "TV on Ethernet? On most TVs Wireless debugging stays greyed out until the TV is on Wi-Fi. Turn on the TV's Wi-Fi and join the same network as your phone, then turn on Wireless debugging. You can turn Wi-Fi off again when you're done.",
                     color = Tidy.BlueSoft, textColor = Tidy.Ink,

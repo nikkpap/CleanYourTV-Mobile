@@ -9,7 +9,7 @@ sealed interface SendResult {
 }
 
 /**
- * Sends files from the phone to the TV's Downloads › TidyTV folder, where the TV's own file
+ * Sends files from the phone to the TV's Downloads › CleanYourTV folder, where the TV's own file
  * manager or media player can open them. Names are made safe and unique on the TV; free space is
  * checked first so a big video fails up front rather than halfway.
  */

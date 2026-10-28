@@ -1,0 +1,105 @@
+name: build
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    env:
+      HAS_KEY: ${{ secrets.SIGNING_KEYSTORE_B64 != '' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: |
+            17
+            25
+            21
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Signing key
+        if: env.HAS_KEY == 'true'
+        env:
+          KEYSTORE_B64: ${{ secrets.SIGNING_KEYSTORE_B64 }}
+          STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
+        run: |
+          mkdir -p keys
+          echo "$KEYSTORE_B64" | base64 -d > keys/cleanyourtv-release.jks
+          printf 'storeFile=cleanyourtv-release.jks\nstorePassword=%s\nkeyAlias=%s\nkeyPassword=%s\n' \
+            "$STORE_PASSWORD" "$KEY_ALIAS" "$KEY_PASSWORD" > keys/signing.properties
+
+      # CleanYourTV's home screen: cleanyourtv's launcher with CleanYourTV's patch (Live TV tile and channels row,
+      # hold-OK menu), built from source and signed with the same key as the app.
+      - name: Build the home screen
+        run: |
+          WORK="$(mktemp -d)"
+          cp -R upstream/cleanyourtv/launcher/. "$WORK/"
+          python3 tools/patch_launcher.py "$WORK" --row on --row-top --menu on --show-live-tv
+          echo "sdk.dir=$ANDROID_HOME" > "$WORK/local.properties"
+          (cd "$WORK" && JAVA_HOME="$JAVA_HOME_17_X64" ./gradlew --no-daemon -q assembleRelease --console=plain)
+          APK="$WORK/app/build/outputs/apk/release/app-release.apk"
+          BT="$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -1)"
+          OUT=app/src/main/assets/launcher/cleanyourtv-home.apk
+          if [ -f keys/signing.properties ]; then
+            . ./keys/signing.properties 2>/dev/null || true
+            SP=$(sed -n 's/^storePassword=//p' keys/signing.properties)
+            KA=$(sed -n 's/^keyAlias=//p' keys/signing.properties)
+            KP=$(sed -n 's/^keyPassword=//p' keys/signing.properties)
+            "$BT/zipalign" -f -p 4 "$APK" "$WORK/aligned.apk"
+            "$BT/apksigner" sign --ks keys/cleanyourtv-release.jks --ks-key-alias "$KA" \
+              --ks-pass "pass:$SP" --key-pass "pass:$KP" --out "$OUT" "$WORK/aligned.apk"
+          else
+            cp "$APK" "$OUT"
+          fi
+          "$BT/apksigner" verify "$OUT"
+          ls -la "$OUT"
+
+      - name: Core tests
+        continue-on-error: true
+        run: ./gradlew --no-daemon :core:test --console=plain
+
+      - name: App
+        run: ./gradlew --no-daemon :app:assembleRelease --console=plain
+
+      - name: Name the APK
+        id: apk
+        run: |
+          V=$(sed -n 's/.*versionName = "\(.*\)".*/\1/p' app/build.gradle.kts | head -1)
+          mkdir -p out
+          cp app/build/outputs/apk/release/app-release.apk "out/CleanYourTV-Mobile-$V.apk"
+          echo "version=$V" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cleanyourtv-mobile
+          path: |
+            out/*.apk
+            **/build/reports/tests/
+
+      # A release for each new version, only with the real key (a debug-key APK could not update it later).
+      - name: Release
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && env.HAS_KEY == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          V="${{ steps.apk.outputs.version }}"
+          if gh release view "v$V" >/dev/null 2>&1; then
+            gh release upload "v$V" "out/CleanYourTV-Mobile-$V.apk" --clobber
+          else
+            gh release create "v$V" "out/CleanYourTV-Mobile-$V.apk" --title "CleanYourTV Mobile $V" \
+              --notes "Install on your Android phone. Built from ${GITHUB_SHA::7}."
+          fi

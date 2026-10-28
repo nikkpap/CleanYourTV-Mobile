@@ -67,7 +67,7 @@ fun TidyingScreen(s: TidyState, onRestore: () -> Unit, onContinue: () -> Unit, o
     } }) {
         if (stopped) {
             HeroMascot(worried = true)
-            Title("TidyTV stopped to be safe")
+            Title("CleanYourTV stopped to be safe")
             Note(s.stopReason!!)
             Body("Your TV is fine. ${s.disabledCount} apps were turned off before it stopped; Restore everything turns them back on.")
         } else {
@@ -163,7 +163,7 @@ fun HomeScreenStep(
         }) {
             HeroMascot(mood = Mood.SEARCH, height = 130.dp)
             Title("Press Install on your TV")
-            Body("Use the remote to press Install. TidyTV carries on by itself.")
+            Body("Use the remote to press Install. CleanYourTV carries on by itself.")
             Bubble("Waiting for the install…") { Spinner(26.dp) }
         }
         HomeState.Running -> ScreenFrame {
@@ -263,7 +263,7 @@ private fun HomePreview(app: HomeApp) {
     }
 }
 
-/** The TV's home app hasn't been tested with TidyTV, so no home screen change is offered. */
+/** The TV's home app hasn't been tested with CleanYourTV, so no home screen change is offered. */
 @Composable
 fun UntestedHomeCard() {
     CardBox(color = Tidy.Grey) {

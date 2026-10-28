@@ -8,7 +8,7 @@ import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import java.io.File
 
-/** A newer TidyTV release on GitHub. */
+/** A newer CleanYourTV release on GitHub. */
 @Serializable
 data class UpdateInfo(val version: String, val url: String)
 
@@ -59,9 +59,9 @@ class UpdateCheck(
     }
 
     companion object {
-        const val LATEST_URL = "https://api.github.com/repos/jolan94/tidytv/releases/latest"
+        const val LATEST_URL = "https://api.github.com/repos/nikkpap/CleanYourTV-Mobile/releases/latest"
         /** Where "Get it" on the banner goes: the Play listing, where updates now come from. */
-        const val SITE_URL = "https://play.google.com/store/apps/details?id=com.appfactory.tidytv"
+        const val SITE_URL = "https://github.com/nikkpap/CleanYourTV-Mobile/releases/latest"
         const val PLAY_STORE = "com.android.vending"
 
         /** Play installs update through Play, so only sideloaded copies (any other installer) check GitHub. */

@@ -24,7 +24,7 @@ import kotlin.random.Random
 /**
  * Just enough of adbd for the real Kadb client: CNXN, AUTH (token, signature, public key with a
  * simulated "Allow debugging?" prompt), legacy `shell:` streams and `sync:` SEND. Shell commands
- * are answered by [tv], so the full TidyTV stack runs over a real socket against a simulated TV.
+ * are answered by [tv], so the full CleanYourTV stack runs over a real socket against a simulated TV.
  */
 class FakeAdbd(private val tv: TvShell) : AutoCloseable {
     enum class User { ALLOW_ALWAYS, ALLOW_ONCE, DENY, IGNORE }

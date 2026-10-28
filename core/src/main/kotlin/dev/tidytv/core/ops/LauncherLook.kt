@@ -46,7 +46,8 @@ class LauncherLook(private val tv: TvShell, private val clock: () -> Long = Syst
     suspend fun apply(look: LookFiles): Boolean {
         if (!Parse.lines(tv.run(Commands.makeConfigDir(pkg))).contains("ok")) return false
         val dock = currentDock()
-        put("config.json", merged(look.config, dock).toByteArray())
+        val live = LiveTv.detect(tv)
+        put("config.json", merged(look.config, dock, live).toByteArray())
         if (look.wallpaper != null) put("wallpaper.jpg", look.wallpaper) else tv.run(Commands.lookDelete(pkg, "wallpaper.jpg"))
         tv.run(Commands.lookClearWallpapers(pkg))
         for ((name, bytes) in look.wallpapers) put("wallpapers/$name", bytes)
@@ -56,9 +57,9 @@ class LauncherLook(private val tv: TvShell, private val clock: () -> Long = Syst
     }
 
     /** Writes the dock alone, as the handover does after installing the home screen. */
-    suspend fun writeDock(dockApps: List<String>) {
+    suspend fun writeDock(dockApps: List<String>, liveTv: String? = null) {
         if (!Parse.lines(tv.run(Commands.makeConfigDir(pkg))).contains("ok")) return
-        put("config.json", Commands.dockConfig(dockApps).toByteArray())
+        put("config.json", (if (liveTv == null) Commands.dockConfig(dockApps) else merged("{}", dockApps, liveTv)).toByteArray())
         put("theme_revision", clock().toString().toByteArray())
     }
 
@@ -76,11 +77,13 @@ class LauncherLook(private val tv: TvShell, private val clock: () -> Long = Syst
 
     companion object {
         /** The theme's settings with the owner's dock in place of the theme's sample dock. */
-        fun merged(config: String, dock: List<String>): String {
+        fun merged(config: String, dock: List<String>, liveTv: String? = null): String {
             val theme = runCatching { Json.parseToJsonElement(config).jsonObject }.getOrDefault(JsonObject(emptyMap()))
             val out = theme.toMutableMap()
             if (dock.isNotEmpty()) out["dock_apps"] = JsonArray(dock.map { JsonPrimitive(it) })
             else out.remove("dock_apps")
+            // CleanYourTV: the Live TV tile, TV button and channels app, unless the theme says otherwise.
+            if (liveTv != null) for ((k, v) in LiveTv.keys(liveTv)) if (k !in out) out[k] = v
             return JsonObject(out).toString() + "\n"
         }
     }

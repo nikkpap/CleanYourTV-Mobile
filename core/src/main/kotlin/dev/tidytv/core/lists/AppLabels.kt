@@ -150,7 +150,7 @@ object AppLabels {
     val ALL_SLUGS: Set<String> =
         (EXACT.values.mapNotNull { it.icon } + PREFIX_ICON.map { it.second }).toSet()
 
-    /** True when TidyTV has a hand-picked name for [pkg]. */
+    /** True when CleanYourTV has a hand-picked name for [pkg]. */
     fun known(pkg: String) = pkg in EXACT
 
     fun iconSlug(pkg: String): String? =

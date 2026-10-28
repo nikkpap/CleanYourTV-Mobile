@@ -4,16 +4,16 @@ import dev.tidytv.core.lists.HomeApp
 import dev.tidytv.core.lists.Launchers
 
 sealed interface RestoreOutcome {
-    /** Everything TidyTV changed is back. */
-    /** [gone]: apps the owner installed and asked TidyTV to uninstall; only Google Play brings them back. */
+    /** Everything CleanYourTV changed is back. */
+    /** [gone]: apps the owner installed and asked CleanYourTV to uninstall; only Google Play brings them back. */
     data class Done(val enabled: List<String>, val homeRestored: Boolean, val gone: List<String> = emptyList()) : RestoreOutcome
-    /** Some packages stayed off; TidyTV's home screen was kept so the TV still has one. Run again. */
+    /** Some packages stayed off; CleanYourTV's home screen was kept so the TV still has one. Run again. */
     data class Partial(val enabled: List<String>, val stillOff: List<String>) : RestoreOutcome
     data class Disconnected(val enabled: List<String>) : RestoreOutcome
 }
 
 /**
- * Puts back what TidyTV changed (upstream tools/restore.sh + tv-detox undo.sh). The targets are
+ * Puts back what CleanYourTV changed (upstream tools/restore.sh + tv-detox undo.sh). The targets are
  * the phone's action log joined with the undo list on the TV, so either one alone is enough.
  * Home only moves back once every package is on again; until then the current Home stays.
  */
@@ -71,7 +71,7 @@ class Restorer(
     }
 
     /**
-     * Turns just [pkgs] back on (GitHub #2: "I turned Netflix off by mistake"). Only apps TidyTV
+     * Turns just [pkgs] back on (GitHub #2: "I turned Netflix off by mistake"). Only apps CleanYourTV
      * turned off are touched, and never a home app: bringing one back alone could move Home, so
      * those stay with the full restore. Each app that comes back leaves the TV's undo list, so a
      * later full restore (or a restore from a new phone) doesn't count it twice.
@@ -118,7 +118,7 @@ class Restorer(
     }
 
     /**
-     * Brings back preinstalled apps TidyTV removed for the user (phone log plus the TV's own list) with
+     * Brings back preinstalled apps CleanYourTV removed for the user (phone log plus the TV's own list) with
      * `cmd package install-existing`, then checks each is installed again. Returns the ones that aren't.
      */
     private suspend fun reinstall(records: List<ActionRecord>, only: Set<String>? = null, onEnabled: (String) -> Unit): List<String> {

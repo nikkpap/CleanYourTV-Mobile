@@ -80,7 +80,7 @@ fun LookScreen(
             Title("Pick a look", Modifier.weight(1f))
             MoreInfo("Looks") {
                 Body("Changes the wallpaper, dock and colours of the Apple TV style home screen. Your apps stay the same.", color = Tidy.Ink)
-                Body("Your own photo: pick any photo from your phone. TidyTV crops it to fit the TV and makes it small before sending.", color = Tidy.Ink)
+                Body("Your own photo: pick any photo from your phone. CleanYourTV crops it to fit the TV and makes it small before sending.", color = Tidy.Ink)
             }
         }
         look.message?.let { if (it.ok) InfoChip(Icons.Rounded.CheckCircle, it.message) else Note(it.message) }

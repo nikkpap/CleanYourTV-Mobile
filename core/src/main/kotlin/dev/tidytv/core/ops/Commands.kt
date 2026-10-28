@@ -3,7 +3,7 @@ package dev.tidytv.core.ops
 import dev.tidytv.core.lists.PackageName
 
 /**
- * Every shell command TidyTV sends, in one place. Anything variable that goes into a command is a
+ * Every shell command CleanYourTV sends, in one place. Anything variable that goes into a command is a
  * validated package name or a component built from one; nothing else is ever interpolated.
  */
 object Commands {
@@ -177,7 +177,7 @@ object Commands {
     fun isInstalled(pkg: String) = "pm list packages ${PackageName.require(pkg)}"
 
     /** Where Send files puts things: a folder the TV's file manager and media apps can see. */
-    const val SEND_DIR = "/sdcard/Download/TidyTV"
+    const val SEND_DIR = "/sdcard/Download/CleanYourTV"
     const val LIST_SEND_DIR = "mkdir -p $SEND_DIR && ls -1 $SEND_DIR; echo ok"
     const val DF_SDCARD = "df /sdcard"
 

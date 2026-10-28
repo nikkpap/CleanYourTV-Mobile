@@ -30,13 +30,13 @@ data class ShareStats(
 
 /** The text that goes with the card when it is shared. */
 fun ShareStats.caption(): String = buildString {
-    append("I tidied my TV with TidyTV: $appsOff junk ${if (appsOff == 1) "app" else "apps"} turned off")
+    append("I tidied my TV with CleanYourTV: $appsOff junk ${if (appsOff == 1) "app" else "apps"} turned off")
     freedMb?.takeIf { it > 0 }?.let { append(", about $it MB of memory back") }
     append(". Free and open source, no computer needed: ").append(SITE)
 }
 
-const val SITE = "https://tidytv.winkle.dev"
-const val REPO = "https://github.com/jolan94/tidytv"
+const val SITE = "https://github.com/nikkpap/CleanYourTV-Mobile"
+const val REPO = "https://github.com/nikkpap/CleanYourTV-Mobile"
 
 /**
  * Draws the share card: a 1080 x 1350 picture (the 4:5 shape feeds use) in the app's own look,
@@ -102,10 +102,10 @@ class ShareCard(private val context: Context, private val icons: Map<String, Str
         }
 
         // The floor: where to get it.
-        c.drawText("TidyTV", 72f, floor + 135f, paint(INK, 80f))
+        c.drawText("CleanYourTV", 72f, floor + 135f, paint(INK, 80f))
         val tag = paint(INK, 38f, 800)
         c.drawText("Free and open source", w - 72f - tag.measureText("Free and open source"), floor + 92f, tag)
-        c.drawText("tidytv.winkle.dev", w - 72f - tag.measureText("tidytv.winkle.dev"), floor + 144f, tag)
+        c.drawText("github.com/nikkpap/CleanYourTV-Mobile", w - 72f - tag.measureText("github.com/nikkpap/CleanYourTV-Mobile"), floor + 144f, tag)
         return bmp
     }
 

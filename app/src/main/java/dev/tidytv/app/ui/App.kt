@@ -19,6 +19,7 @@ import dev.tidytv.app.ui.screens.ConnectScreen
 import dev.tidytv.app.ui.screens.DoneScreen
 import dev.tidytv.app.ui.screens.AllAppsScreen
 import dev.tidytv.app.ui.screens.AdBlockScreen
+import dev.tidytv.app.ui.screens.ProfileScreen
 import dev.tidytv.app.ui.screens.SpaceScreen
 import dev.tidytv.app.ui.screens.HubScreen
 import dev.tidytv.app.ui.screens.CheckScreen
@@ -141,6 +142,7 @@ private fun StepScreen(step: Step, s: UiState, vm: WizardViewModel?, onShareLogs
         Step.HUB -> HubScreen(
             s.tv, s.done.records.offByUs().count { !dev.tidytv.core.lists.Launchers.isHomeApp(it) }, s.wizard.kind == dev.tidytv.core.flow.TvKind.FIRE_TV,
             { vm?.openTidy() }, { vm?.openRemote() }, { vm?.openFiles() }, { vm?.openHomeScreen() }, { vm?.openRestore() }, { vm?.back() }, { vm?.openCheck() }, { vm?.openSpace() }, { vm?.openAds() },
+            onProfile = { vm?.openProfile() },
         )
         Step.REMOTE -> RemoteScreen(s.remote, s.tv?.title, { vm?.press(it) }, { vm?.type(it) }, { vm?.launchApp(it) }, { vm?.dismissRemoteMessage() }, { vm?.toHub() }, { vm?.togglePin(it) }, { p, d -> vm?.movePin(p, d) })
         Step.SEND_FILES -> SendFilesScreen(s.files, s.tv?.title, { vm?.sendFiles(it) }, { vm?.cancelFile(it) }, { vm?.retryFile(it) }, { vm?.toHub() })
@@ -155,6 +157,7 @@ private fun StepScreen(step: Step, s: UiState, vm: WizardViewModel?, onShareLogs
             { vm?.retryBackup() }, { vm?.toDone() }, { vm?.showMoreApps() }, { vm?.openAllApps() }, { vm?.setUninstall(it) },
         )
         Step.ADS -> AdBlockScreen(s.ads, s.tv?.title, { p, ok -> vm?.blockAds(p, ok) }, { vm?.unblockAds() }, { vm?.cancelReplaceDns() }, { vm?.toHub() })
+        Step.PROFILE -> ProfileScreen(s.profile, s.tv?.title, { vm?.pickProfile(it) }, { vm?.toggleProfilePart(it) }, { vm?.applyProfile() }, { vm?.toHub() })
         Step.SPACE -> SpaceScreen(s.space, s.tv?.title, s.labels, { vm?.clearCaches() }, { vm?.toHub() })
         Step.TIDYING -> TidyingScreen(s.tidy, { vm?.toDone(); vm?.restoreEverything() }, { vm?.toDone() }, onShareLogs)
         Step.HOME_SCREEN -> HomeScreenStep(

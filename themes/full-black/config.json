@@ -1,0 +1,20 @@
+{
+  "background_color": "#000000",
+  "wallpaper": false,
+  "sky_intensity": 0,
+  "reduced_motion": true,
+  "always_show_names": false,
+  "cinematic_home": true,
+  "cinematic_art": 0,
+  "cinematic_white_focus": true,
+  "dock_glass": false,
+  "dock_opacity": 100,
+  "app_glow": false,
+  "ambient_glow": false,
+  "icon_only_buttons": true,
+  "app_library": true,
+  "show_stats": true,
+  "live_tv_row": false,
+  "clock_glow": false,
+  "glass_style": "rim"
+}

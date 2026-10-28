@@ -1,3 +1,13 @@
+CleanYourTV Mobile
+Copyright 2026 Nikolaos K. Paridis. Licensed under the MIT License.
+
+A fork of TidyTV (https://github.com/jolan94/tidytv) 0.8.1, MIT License, Copyright 2026 the TidyTV contributors.
+CleanYourTV's additions: the launcher patch (tools/patch_launcher.py, from CleanYourTV for Windows), the looks in
+themes/, profiles (core ops/CytProfile.kt, app data/ProfileImport.kt and the My profile screen) and the Live TV
+extras (core ops/LiveTv.kt).
+
+TidyTV's notice follows.
+
 TidyTV
 Copyright 2026 the TidyTV contributors. Licensed under the MIT License.
 

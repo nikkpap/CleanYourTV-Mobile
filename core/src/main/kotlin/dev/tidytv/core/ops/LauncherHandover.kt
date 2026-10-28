@@ -7,7 +7,7 @@ sealed interface HandoverOutcome {
     data class Done(val disabledStock: String?) : HandoverOutcome
     /** Home is Android's chooser and it is unclear which launcher is the stock one. */
     data class NeedsChoice(val claimants: Set<String>) : HandoverOutcome
-    /** Home belongs to something TidyTV doesn't recognise; nothing was changed. */
+    /** Home belongs to something CleanYourTV doesn't recognise; nothing was changed. */
     data class UnknownHome(val owner: String?) : HandoverOutcome
     /** A copy of the home screen signed with another key is installed (e.g. from tv-detox's own release). */
     data object SignatureConflict : HandoverOutcome
@@ -31,7 +31,7 @@ sealed interface HandoverOutcome {
 }
 
 /**
- * Installs one of TidyTV's home screens ([HomeApp]) and hands Home over to it. Order from
+ * Installs one of CleanYourTV's home screens ([HomeApp]) and hands Home over to it. Order from
  * upstream launcher/build-and-install.sh: install alone, start the new launcher and confirm it came
  * up, only then turn the stock launcher off, set Home after (Android drops the preference when the
  * set of HOME apps changes), then check where Home landed and roll back if it isn't ours.
@@ -98,7 +98,7 @@ class LauncherHandover(
         val homeBefore = Parse.component(tv.run(Commands.RESOLVE_HOME))
         val homePkg = homeBefore?.substringBefore('/')
         val stock: String? = when {
-            // Already one of TidyTV's home screens: switch between them without touching stock.
+            // Already one of CleanYourTV's home screens: switch between them without touching stock.
             HomeApp.of(homePkg) != null -> null
             homePkg in Launchers.KNOWN_STOCK -> homePkg
             homePkg == "android" -> {
@@ -150,8 +150,11 @@ class LauncherHandover(
         // tv-detox takes them as start extras below.
         if (app.dockByConfig) {
             // Through the launcher's own provider (LauncherLook): a file the shell creates can't be read on Android 14.
-            if (dockApps.isNotEmpty()) LauncherLook(tv, clock).writeDock(dockApps)
+            // CleanYourTV: the Live TV tile and channels row need the Live TV app's name and READ_TV_LISTINGS.
+            val live = if (app == dev.tidytv.core.lists.HomeApp.STYLED) LiveTv.detect(tv) else null
+            if (dockApps.isNotEmpty() || live != null) LauncherLook(tv, clock).writeDock(dockApps, live)
             tv.run(Commands.grantLocation(ourPkg)) // shows the Wi-Fi name; harmless if refused
+            if (app == dev.tidytv.core.lists.HomeApp.STYLED) tv.run(LiveTv.grant(ourPkg)) // the channels row; harmless if refused
         }
 
         // 3. Start it before anything else changes; "Status: ok" and no "Error" line, both required.

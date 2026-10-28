@@ -1,7 +1,7 @@
 package dev.tidytv.core.lists
 
 /**
- * Packages TidyTV never disables, whatever a list says. Upstream PROMPT.md: never disable the TV and
+ * Packages CleanYourTV never disables, whatever a list says. Upstream PROMPT.md: never disable the TV and
  * input services (HDMI, tuner), the input menu, remote and Bluetooth pairing, the keyboard, Play
  * Store or Play Services. Over-matching is fine: a protected package is simply left on.
  *
@@ -49,7 +49,7 @@ object Protected {
         "com.android.modulemetadata",
         "com.google.android.modulemetadata",
         "com.android.phone",
-    ) + HomeApp.entries.map { it.pkg } // TidyTV's own home screens, once installed.
+    ) + HomeApp.entries.map { it.pkg } // CleanYourTV's own home screens, once installed.
 
     /**
      * The voice assistant and the remote's shortcut and mic helpers. Not locked (some owners want them gone), but a
@@ -94,7 +94,7 @@ object Protected {
         reason(pkg, live, listKeep) != null
 }
 
-/** A home screen TidyTV can install. Both are MIT and bundled in the app's assets. */
+/** A home screen CleanYourTV can install. Both are MIT and bundled in the app's assets. */
 enum class HomeApp(
     val pkg: String,
     val activity: String,
@@ -109,15 +109,15 @@ enum class HomeApp(
     /** cleanyourtv (Gathin): Apple TV style dock with a glass highlight and an inputs menu. Android 8+. */
     STYLED("com.gathin.tvhome", ".MainActivity", 26, "cleanyourtv-home.apk", dockByConfig = true),
     /**
-     * Projectivy Launcher (free, closed source): never bundled. TidyTV opens its Play Store page on
-     * the TV, the owner presses Install, then TidyTV makes it Home. Its activity is looked up on the
-     * TV, and Restore never uninstalls it because TidyTV didn't install it.
+     * Projectivy Launcher (free, closed source): never bundled. CleanYourTV opens its Play Store page on
+     * the TV, the owner presses Install, then CleanYourTV makes it Home. Its activity is looked up on the
+     * TV, and Restore never uninstalls it because CleanYourTV didn't install it.
      */
     PROJECTIVY("com.spocky.projengmenu", "", 22, null, dockByConfig = false);
 
     val component: String get() = "$pkg/$activity"
 
-    /** Installed from the TV's own Play Store rather than pushed by TidyTV. */
+    /** Installed from the TV's own Play Store rather than pushed by CleanYourTV. */
     val fromPlayStore: Boolean get() = asset == null
 
     companion object {
@@ -132,7 +132,7 @@ object Launchers {
     const val SETUPWRAITH = "com.google.android.tungsten.setupwraith"
     const val LAUNCHERX = "com.google.android.apps.tv.launcherx"
 
-    /** Stock launchers TidyTV may turn off, and only after its own home screen owns Home. */
+    /** Stock launchers CleanYourTV may turn off, and only after its own home screen owns Home. */
     val KNOWN_STOCK: Set<String> = setOf(
         "com.google.android.tvlauncher",
         LAUNCHERX,

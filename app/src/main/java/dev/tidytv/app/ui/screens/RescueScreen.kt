@@ -72,11 +72,11 @@ fun RescueScreen(
                 Bubble("Trying to reach your TV… attempt ${s.attempts}", leading = { Spinner() })
                 StepCard(Icons.Rounded.PowerSettingsNew, Tidy.Orange, "Unplug the TV for 10 seconds")
                 StepCard(Icons.Rounded.Wifi, Tidy.Blue, "Keep your phone on the same Wi-Fi")
-                StepCard(Icons.Rounded.Restore, Tidy.Green, "TidyTV puts everything back")
+                StepCard(Icons.Rounded.Restore, Tidy.Green, "CleanYourTV puts everything back")
                 MoreInfo("TV stuck after a change?", link = "More about this") {
                     NumberedStep(1, "Turn the TV off at the wall, wait 10 seconds, and turn it on again.")
                     NumberedStep(2, "Keep your phone on the same network.")
-                    NumberedStep(3, "As soon as the TV answers, TidyTV turns everything it changed back on.")
+                    NumberedStep(3, "As soon as the TV answers, CleanYourTV turns everything it changed back on.")
                 }
             }
         }

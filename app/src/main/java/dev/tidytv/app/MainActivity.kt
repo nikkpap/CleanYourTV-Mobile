@@ -51,6 +51,7 @@ class MainActivity : ComponentActivity() {
                         else dev.tidytv.app.data.UpdateCheck(store.updateFile, BuildConfig.VERSION_NAME, ::httpGet),
                     looks = { id -> dev.tidytv.app.data.Looks.load(app.assets, id) },
                     photoWallpaper = { f -> dev.tidytv.app.data.Wallpaper.fromPhoto(f.size) { f.open() } },
+                    profileCache = app.cacheDir,
                 )
             }
         }
@@ -91,9 +92,18 @@ class MainActivity : ComponentActivity() {
 
     // Lazy: filesDir is null until the activity's context is attached, so it can't be read in an initializer.
     private val host by lazy { Host(
+        // Feedback opens a GitHub issue in this fork's repository, filled in, for the person to send themselves:
+        // nothing goes to TidyTV's own backend, and nothing is sent without them seeing it.
         sendFeedback = { draft, includeLog ->
             val log = if (includeLog) runCatching { vm.exportLogs(File(cacheDir, "share"), BuildConfig.VERSION_NAME).readText() }.getOrNull() else null
-            feedback.send(draft.copy(log = log))
+            val body = buildString {
+                append(draft.message.trim()).append("\n\n---\n")
+                append("CleanYourTV Mobile ${BuildConfig.VERSION_NAME}, ${Build.MANUFACTURER} ${Build.MODEL}, Android ${Build.VERSION.RELEASE}\n")
+                if (!log.isNullOrBlank()) append("\n<details><summary>Log</summary>\n\n```\n").append(log.takeLast(6000)).append("\n```\n</details>\n")
+            }
+            val url = "$REPO/issues/new?title=" + Uri.encode("${draft.kind.label}: " + draft.message.trim().lineSequence().first().take(70)) +
+                "&body=" + Uri.encode(body)
+            runCatching { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url))) }.isSuccess
         },
         renderCard = { ShareCard(this, vm.ui.value.icons).render(it) },
         shareCard = { stats ->
@@ -105,7 +115,7 @@ class MainActivity : ComponentActivity() {
                 putExtra(Intent.EXTRA_TEXT, stats.caption())
                 addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             }
-            startActivity(Intent.createChooser(send, "Share your TidyTV card"))
+            startActivity(Intent.createChooser(send, "Share your CleanYourTV card"))
         },
         openStar = { runCatching { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(REPO))) } },
         openUrl = { url -> runCatching { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url))) } },
@@ -114,7 +124,7 @@ class MainActivity : ComponentActivity() {
     ) }
 
     /**
-     * 4 and 5 stars: Google Play's own review dialog when Play installed TidyTV; otherwise (or if Play declines
+     * 4 and 5 stars: Google Play's own review dialog when Play installed CleanYourTV; otherwise (or if Play declines
      * to show it) the store page, so a happy person always gets somewhere to rate.
      */
     private fun requestReview() {
@@ -137,7 +147,7 @@ class MainActivity : ComponentActivity() {
             ?: java.util.UUID.randomUUID().toString().also { runCatching { f.writeText(it) } }
     }
 
-    /** Which app installed TidyTV ("com.android.vending" for Google Play); null when Android won't say. */
+    /** Which app installed CleanYourTV ("com.android.vending" for Google Play); null when Android won't say. */
     private fun installerOf(pkg: String): String? = runCatching {
         if (android.os.Build.VERSION.SDK_INT >= 30) packageManager.getInstallSourceInfo(pkg).installingPackageName
         else @Suppress("DEPRECATION") packageManager.getInstallerPackageName(pkg)
@@ -150,7 +160,7 @@ class MainActivity : ComponentActivity() {
             c.connectTimeout = 8_000
             c.readTimeout = 8_000
             c.setRequestProperty("Accept", "application/vnd.github+json")
-            c.setRequestProperty("User-Agent", "TidyTV/${BuildConfig.VERSION_NAME}")
+            c.setRequestProperty("User-Agent", "CleanYourTV/${BuildConfig.VERSION_NAME}")
             if (c.responseCode != 200) null else c.inputStream.bufferedReader().use { it.readText() }
         } finally {
             c.disconnect()
@@ -163,7 +173,7 @@ class MainActivity : ComponentActivity() {
         val send = Intent(Intent.ACTION_SEND).apply {
             type = "text/plain"
             putExtra(Intent.EXTRA_STREAM, uri)
-            putExtra(Intent.EXTRA_SUBJECT, "TidyTV log")
+            putExtra(Intent.EXTRA_SUBJECT, "CleanYourTV log")
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         }
         startActivity(Intent.createChooser(send, "Share logs"))

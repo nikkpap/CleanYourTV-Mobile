@@ -1,0 +1,13 @@
+{
+  "background_color": "#050A18",
+  "wallpaper": true,
+  "wallpaper_dim": 0,
+  "dock_glass": true,
+  "icon_only_buttons": true,
+  "glass_style": "halo",
+  "app_glow": true,
+  "glow_style": "horizon",
+  "focus_overshoot": false,
+  "clock_wallpaper": true,
+  "clock_wallpaper_dim": 45
+}

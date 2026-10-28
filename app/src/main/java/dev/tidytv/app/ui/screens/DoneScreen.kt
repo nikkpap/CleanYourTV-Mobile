@@ -120,7 +120,7 @@ fun DoneScreen(
             }
             is RestoreUi.Finished -> if (r.ok) SafetyBanner(r.message) else Note(r.message)
             RestoreUi.Idle -> if (restoreMode && s.records.none { it.op == Op.DISABLE }) {
-                Body("TidyTV has no changes saved on this phone for this TV. Restore still checks the list kept on the TV itself.")
+                Body("CleanYourTV has no changes saved on this phone for this TV. Restore still checks the list kept on the TV itself.")
             }
         }
         if (!restoring) OffApps(s, labels, onTurnOn)
@@ -138,7 +138,7 @@ fun DoneScreen(
     }
 }
 
-/** Every app TidyTV turned off and that is still off, each with its own Turn on (GitHub #2). */
+/** Every app CleanYourTV turned off and that is still off, each with its own Turn on (GitHub #2). */
 @Composable
 private fun OffApps(s: DoneState, labels: Map<String, String>, onTurnOn: (String) -> Unit) {
     val off = s.records.offByUs().filterNot { Launchers.isHomeApp(it) }

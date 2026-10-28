@@ -6,13 +6,13 @@ import dev.tidytv.core.lists.Protected
 
 /** What "Check my TV" found. */
 data class CheckReport(
-    /** Apps TidyTV turned off that are on again, usually after a firmware update. */
+    /** Apps CleanYourTV turned off that are on again, usually after a firmware update. */
     val backOn: List<String>,
     /** Apps from this TV's list that weren't installed at the last backup: new bloat from an update. */
     val newOnList: List<String>,
-    /** TidyTV's home screen was Home, and now something else is. */
+    /** CleanYourTV's home screen was Home, and now something else is. */
     val homeChanged: Boolean,
-    /** Apps TidyTV turned off that are still off. */
+    /** Apps CleanYourTV turned off that are still off. */
     val stillOff: Int,
     /** The voice assistant or remote helpers are off, so the mic or shortcut keys may not work (the owner's call). */
     val remoteOff: List<String> = emptyList(),
@@ -24,7 +24,7 @@ data class CheckReport(
 
 /**
  * Firmware updates often switch bloat back on (tv-detox check.sh). This compares the TV with what
- * TidyTV did: the phone's action log plus the undo list on the TV. Read-only; [Debloater] does the
+ * CleanYourTV did: the phone's action log plus the undo list on the TV. Read-only; [Debloater] does the
  * re-tidy, after a fresh backup, like any other clean-up.
  */
 class TvCheck(private val tv: TvShell, private val log: ActionLog) {

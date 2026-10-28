@@ -8,9 +8,9 @@ enum class AdBlockProvider(val host: String, val title: String, val blurb: Strin
 
 /** What Private DNS is set to right now. */
 data class DnsState(val mode: String?, val host: String?) {
-    /** The provider TidyTV set, if it is the one in use. */
+    /** The provider CleanYourTV set, if it is the one in use. */
     val provider: AdBlockProvider? get() = if (mode == "hostname") AdBlockProvider.entries.firstOrNull { it.host == host } else null
-    /** The owner (or their router app) set a different Private DNS: TidyTV asks before replacing it. */
+    /** The owner (or their router app) set a different Private DNS: CleanYourTV asks before replacing it. */
     val someoneElses: Boolean get() = mode == "hostname" && provider == null
 }
 
@@ -48,7 +48,7 @@ class PrivateDns(private val tv: TvShell, private val log: ActionLog, private va
         return if (ok) after else read()
     }
 
-    /** Puts Private DNS back as it was before TidyTV first touched it. */
+    /** Puts Private DNS back as it was before CleanYourTV first touched it. */
     suspend fun turnOff(): DnsState {
         undo()
         return read()
@@ -62,7 +62,7 @@ class PrivateDns(private val tv: TvShell, private val log: ActionLog, private va
             val (ns, name) = key.split('/', limit = 2)
             tv.run(if (before == null || before == "null") Settings.delete(ns, name) else Settings.put(ns, name, before))
         }
-        // No record means TidyTV never changed it: leave the owner's setting alone.
+        // No record means CleanYourTV never changed it: leave the owner's setting alone.
         if (MODE_KEY in first && first[MODE_KEY] == null) tv.run(Settings.put("global", MODE, "off"))
     }
 

@@ -119,7 +119,7 @@ fun Bubble(text: String, color: Color = Tidy.BlueSoft, textColor: Color = Tidy.I
 
 /** The mascot's moods, each a Codex illustration in res/drawable-nodpi. */
 enum class Mood(val res: Int, val description: String) {
-    STAND(dev.tidytv.app.R.drawable.mascot_stand, "The TidyTV mascot, a smiling blue TV"),
+    STAND(dev.tidytv.app.R.drawable.mascot_stand, "The CleanYourTV mascot, a smiling blue TV"),
     SEARCH(dev.tidytv.app.R.drawable.mascot_search, "The mascot looking through a magnifying glass"),
     HAPPY(dev.tidytv.app.R.drawable.mascot_happy, "The mascot smiling with its eyes closed"),
     CHEER(dev.tidytv.app.R.drawable.mascot_cheer, "The mascot cheering with both arms up"),

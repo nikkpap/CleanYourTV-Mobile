@@ -12,7 +12,7 @@ object Finisher {
     suspend fun measure(tv: TvShell, memBeforeKb: Long?): FinishReport =
         FinishReport(memBeforeKb, runCatching { Parse.memAvailableKb(tv.run(Commands.MEMINFO)) }.getOrNull())
 
-    /** Steps the user follows on the TV. TidyTV can't turn debugging off for them without losing the connection first. */
+    /** Steps the user follows on the TV. CleanYourTV can't turn debugging off for them without losing the connection first. */
     val TURN_OFF_STEPS = listOf(
         "On the TV, open Settings › System › Developer options.",
         "Turn off USB debugging and Network debugging (or Wireless debugging).",

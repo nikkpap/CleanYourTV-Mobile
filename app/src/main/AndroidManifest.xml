@@ -9,7 +9,7 @@
     <application
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
-        android:label="TidyTV"
+        android:label="CleanYourTV"
         android:supportsRtl="true"
         android:theme="@style/Theme.TidyTv">
         <activity

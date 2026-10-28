@@ -38,7 +38,7 @@ import dev.tidytv.app.ui.Title
 import dev.tidytv.app.ui.TopBar
 import dev.tidytv.core.lists.AppLabels
 
-/** Check my TV: compares the TV with what TidyTV turned off, and offers to turn things off again. */
+/** Check my TV: compares the TV with what CleanYourTV turned off, and offers to turn things off again. */
 @Composable
 fun CheckScreen(
     s: CheckState,
@@ -74,7 +74,7 @@ fun CheckScreen(
         Row(verticalAlignment = Alignment.CenterVertically) {
             Title("Check my TV", Modifier.weight(1f))
             MoreInfo("Check my TV") {
-                Body("TV updates sometimes switch apps back on. This checks your TV against what TidyTV turned off.", color = Tidy.Ink)
+                Body("TV updates sometimes switch apps back on. This checks your TV against what CleanYourTV turned off.", color = Tidy.Ink)
                 Body("Restarting checks that everything stays off after a reboot. It takes about 2 minutes.", color = Tidy.Ink)
             }
         }

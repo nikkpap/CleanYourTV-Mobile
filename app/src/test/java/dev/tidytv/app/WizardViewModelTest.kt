@@ -365,7 +365,7 @@ class WizardViewModelTest {
         val items = vm.ui.value.files.items
         assertEquals(listOf(SendStatus.SENT, SendStatus.SENT), items.map { it.status })
         assertEquals(listOf("photo.jpg", "photo (2).jpg"), items.map { it.savedAs })
-        assertTrue(a.contentEquals(demo.tv.pushed["/sdcard/Download/TidyTV/photo.jpg"]))
+        assertTrue(a.contentEquals(demo.tv.pushed["/sdcard/Download/CleanYourTV/photo.jpg"]))
     }
 
     /** Tidies the Demo TV and returns to the hub; the apps turned off. */
@@ -507,7 +507,7 @@ class WizardViewModelTest {
         connectToDemo(vm)
         vm.openAllApps(); advanceUntilIdle()
         val all = vm.ui.value.review.all!!
-        assertEquals("every app TidyTV can name, each once", (tv.installed - tv.disabled).filter(dev.tidytv.core.lists.PackageName::isValid).size, all.rows.size)
+        assertEquals("every app CleanYourTV can name, each once", (tv.installed - tv.disabled).filter(dev.tidytv.core.lists.PackageName::isValid).size, all.rows.size)
         assertTrue(!all.loading)
         assertEquals(151, all.facts["com.google.android.apps.tv.launcherx"]!!.ramMb)
         val tiers = all.rows.groupBy { it.tier }
