@@ -10,7 +10,8 @@ Send files, Check my TV, Free up space and Block ads. CleanYourTV Mobile adds:
 - **CleanYourTV's home screen**: cleanyourtv's Apple TV style launcher with CleanYourTV's patch: the TV's Live TV
   app as a blue "Live TV" tile, the tuner's channels as a row above the apps (hide and reorder them, kept across
   reboots), the remote's TV button opening Live TV, a hold-OK menu on every tile (Open, Move, Uninstall), and a
-  Bluetooth button in the top bar: the paired headphones and speakers, OK connects one again, Search pairs new ones.
+  Bluetooth button in the top bar: the paired headphones and speakers, OK connects one again, Search pairs new ones;
+  the Wi-Fi pill drops a menu too: the network the TV is on and the ones around with their signal.
 - **Seven more looks**: Ellada, Aegean night, Meteora dusk, Olympus mist, Neon grid, OLED black and Full black,
   drawn in code (`themes/make_themes.py`).
 - **My profile**: pick a `.cytv`, or a `.zip` saved with *Save profile + apps*, on the phone. It installs the
@@ -30,7 +31,7 @@ GitHub Actions builds it on every push (`.github/workflows/build.yml`): the home
 
 ```bash
 git clone --recurse-submodules https://github.com/nikkpap/CleanYourTV-Mobile
-python3 tools/patch_launcher.py /tmp/launcher-copy --row on --row-top --menu on --bt on --show-live-tv   # on a copy
+python3 tools/patch_launcher.py /tmp/launcher-copy --row on --row-top --menu on --bt on --wifi on --show-live-tv   # on a copy
 ./gradlew :app:assembleDebug
 ```
 

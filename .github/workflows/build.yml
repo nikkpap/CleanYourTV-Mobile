@@ -47,7 +47,7 @@ jobs:
         run: |
           WORK="$(mktemp -d)"
           cp -R upstream/cleanyourtv/launcher/. "$WORK/"
-          python3 tools/patch_launcher.py "$WORK" --row on --row-top --menu on --bt on --show-live-tv
+          python3 tools/patch_launcher.py "$WORK" --row on --row-top --menu on --bt on --wifi on --show-live-tv
           echo "sdk.dir=$ANDROID_HOME" > "$WORK/local.properties"
           (cd "$WORK" && JAVA_HOME="$JAVA_HOME_17_X64" ./gradlew --no-daemon -q assembleRelease --console=plain)
           APK="$WORK/app/build/outputs/apk/release/app-release.apk"
