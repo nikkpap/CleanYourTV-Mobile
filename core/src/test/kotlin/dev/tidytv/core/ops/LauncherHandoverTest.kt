@@ -219,7 +219,9 @@ class LauncherHandoverTest {
         assertEquals(HandoverOutcome.Done(Launchers.LAUNCHERX), out)
         assertEquals(HomeApp.STYLED.component, tv.home())
         val config = tv.pushed["/sdcard/Android/data/com.gathin.tvhome/files/config.json"]!!.decodeToString()
-        assertEquals("{\"dock_apps\": [\"com.netflix.ninja\", \"com.google.android.youtube.tv\"]}\n", config)
+        // CleanYourTV: the Live TV keys ride along when the TV has a Live TV app; the dock is as chosen.
+        val dock = kotlinx.serialization.json.Json.parseToJsonElement(config).let { it as kotlinx.serialization.json.JsonObject }["dock_apps"].toString()
+        assertEquals("[\"com.netflix.ninja\",\"com.google.android.youtube.tv\"]", dock)
         assertTrue(tv.files.keys.any { it.endsWith("com.gathin.tvhome/files/theme_revision") })
         assertTrue(tv.commands.any { it.startsWith("am start -W -n com.gathin.tvhome/.MainActivity") && !it.contains("--es") })
         assertTrue(tv.commands.any { it.startsWith("pm grant com.gathin.tvhome") })
@@ -237,7 +239,8 @@ class LauncherHandoverTest {
     @Test fun styledWithNoDockSkipsConfig() = runTest {
         val tv = FakeTv.googleTv()
         styled(tv).run(apk, emptyList(), sdk = 30)
-        assertTrue(tv.pushed.keys.none { it.endsWith("config.json") })
+        // CleanYourTV: only the Live TV keys may be written, never a dock.
+        assertTrue(tv.pushed.filterKeys { it.endsWith("config.json") }.values.all { !it.decodeToString().contains("dock_apps") })
     }
 
     @Test fun switchingBetweenTidyHomeScreensLeavesStockAlone() = runTest {
