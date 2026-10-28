@@ -28,7 +28,11 @@ object LiveTv {
     const val RESOLVE_CHANNEL = "cmd package resolve-activity --brief -a android.intent.action.VIEW " +
         "-d content://android.media.tv/channel/1 -t vnd.android.cursor.item/channel"
 
-    fun grant(pkg: String) = "pm grant ${PackageName.require(pkg)} $PERMISSION 2>/dev/null; echo granted"
+    /** READ_TV_LISTINGS for the channels row, and BLUETOOTH_CONNECT for the Bluetooth pill (Android 12+). */
+    fun grant(pkg: String): String {
+        val p = PackageName.require(pkg)
+        return "pm grant $p $PERMISSION 2>/dev/null; pm grant $p android.permission.BLUETOOTH_CONNECT 2>/dev/null; echo granted"
+    }
 
     /** The app that tunes a channel, as the stock launcher's channel tiles do; else a known tuner app; null without one. */
     suspend fun detect(tv: TvShell): String? = runCatching {
