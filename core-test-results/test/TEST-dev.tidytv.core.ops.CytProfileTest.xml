@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.tidytv.core.ops.CytProfileTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-10-30T12:54:30.566Z" hostname="runnervm48cm3" time="0.025">
+  <properties/>
+  <testcase name="readsProfile" classname="dev.tidytv.core.ops.CytProfileTest" time="0.023"/>
+  <testcase name="noThemeWhenConfigIsBroken" classname="dev.tidytv.core.ops.CytProfileTest" time="0.001"/>
+  <testcase name="refusesOtherFiles" classname="dev.tidytv.core.ops.CytProfileTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

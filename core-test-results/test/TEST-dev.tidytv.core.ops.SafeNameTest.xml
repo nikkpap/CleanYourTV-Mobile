@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.tidytv.core.ops.SafeNameTest" tests="16" skipped="0" failures="0" errors="0" timestamp="2026-10-30T12:54:31.482Z" hostname="runnervm48cm3" time="0.007">
+  <properties/>
+  <testcase name="uniqueWithoutExtension" classname="dev.tidytv.core.ops.SafeNameTest" time="0.001"/>
+  <testcase name="dotDotInPathIsHarmless" classname="dev.tidytv.core.ops.SafeNameTest" time="0.0"/>
+  <testcase name="longExtensionIsNotKept" classname="dev.tidytv.core.ops.SafeNameTest" time="0.001"/>
+  <testcase name="dangerousCharsReplaced" classname="dev.tidytv.core.ops.SafeNameTest" time="0.0"/>
+  <testcase name="uniqueReturnsSameWhenFree" classname="dev.tidytv.core.ops.SafeNameTest" time="0.0"/>
+  <testcase name="veryLongNameWithoutExtension" classname="dev.tidytv.core.ops.SafeNameTest" time="0.0"/>
+  <testcase name="uniqueAddsSuffixBeforeExtension" classname="dev.tidytv.core.ops.SafeNameTest" time="0.0"/>
+  <testcase name="emptyBecomesFile" classname="dev.tidytv.core.ops.SafeNameTest" time="0.0"/>
+  <testcase name="pathsBecomeUnderscores" classname="dev.tidytv.core.ops.SafeNameTest" time="0.001"/>
+  <testcase name="trimsSpacesAndDots" classname="dev.tidytv.core.ops.SafeNameTest" time="0.0"/>
+  <testcase name="dotDotBecomesFile" classname="dev.tidytv.core.ops.SafeNameTest" time="0.0"/>
+  <testcase name="normalNameUnchanged" classname="dev.tidytv.core.ops.SafeNameTest" time="0.0"/>
+  <testcase name="outputNeverHasQuoteOrSlash" classname="dev.tidytv.core.ops.SafeNameTest" time="0.0"/>
+  <testcase name="hiddenNamesLoseLeadingDot" classname="dev.tidytv.core.ops.SafeNameTest" time="0.0"/>
+  <testcase name="veryLongNameKeepsExtension" classname="dev.tidytv.core.ops.SafeNameTest" time="0.0"/>
+  <testcase name="repeatedUnderscoresCollapse" classname="dev.tidytv.core.ops.SafeNameTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

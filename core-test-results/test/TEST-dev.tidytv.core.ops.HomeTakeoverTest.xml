@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.tidytv.core.ops.HomeTakeoverTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2026-10-30T12:54:30.719Z" hostname="runnervm48cm3" time="0.065">
+  <properties/>
+  <testcase name="anotherHomeScreenAppTiesWithOursSoNothingIsChangedAndTheOwnerIsToldWhy" classname="dev.tidytv.core.ops.HomeTakeoverTest" time="0.018"/>
+  <testcase name="onAnEthernetTvTheOwnerCanOverrideTheWifiCheck" classname="dev.tidytv.core.ops.HomeTakeoverTest" time="0.005"/>
+  <testcase name="setupAppGoesFirstThenTheStockLauncherAndTheHomeKeyOpensOurs" classname="dev.tidytv.core.ops.HomeTakeoverTest" time="0.008"/>
+  <testcase name="theBugTheOwnerSawIsRealOnThisModel" classname="dev.tidytv.core.ops.HomeTakeoverTest" time="0.003"/>
+  <testcase name="aHomeKeyThatOpensSomethingElseIsNeverCalledDone" classname="dev.tidytv.core.ops.HomeTakeoverTest" time="0.005"/>
+  <testcase name="theSetupAppOwningTheWifiBlocksBeforeAnythingChanges" classname="dev.tidytv.core.ops.HomeTakeoverTest" time="0.003"/>
+  <testcase name="parsesWhatIsOnScreen" classname="dev.tidytv.core.ops.HomeTakeoverTest" time="0.0"/>
+  <testcase name="anUnfinishedFirstSetupKeepsTheSetupApp" classname="dev.tidytv.core.ops.HomeTakeoverTest" time="0.003"/>
+  <testcase name="runningItTwiceChangesNothingTheSecondTime" classname="dev.tidytv.core.ops.HomeTakeoverTest" time="0.003"/>
+  <testcase name="ifTheStockLauncherWontTurnOffEverythingIsPutBack" classname="dev.tidytv.core.ops.HomeTakeoverTest" time="0.003"/>
+  <testcase name="restoreBringsBothBackAndGoogleTvOwnsTheHomeKeyAgain" classname="dev.tidytv.core.ops.HomeTakeoverTest" time="0.006"/>
+  <testcase name="aDroppedConnectionMidwayCanBeResumedAndRestored" classname="dev.tidytv.core.ops.HomeTakeoverTest" time="0.003"/>
+  <testcase name="ifTheTvWontSayWhatIsOnScreenTheOwnAnswerCounts" classname="dev.tidytv.core.ops.HomeTakeoverTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

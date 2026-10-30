@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.tidytv.core.ops.RemovalTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-10-30T12:54:31.229Z" hostname="runnervm48cm3" time="0.21">
+  <properties/>
+  <testcase name="removedAppsAreGoneAndRestoreBringsThemBack" classname="dev.tidytv.core.ops.RemovalTest" time="0.003"/>
+  <testcase name="aRefusedUninstallStopsTheRun" classname="dev.tidytv.core.ops.RemovalTest" time="0.002"/>
+  <testcase name="factsAndFreeingCaches" classname="dev.tidytv.core.ops.RemovalTest" time="0.003"/>
+  <testcase name="allAppsPutsEveryAppInOneTierAndOrigin" classname="dev.tidytv.core.ops.RemovalTest" time="0.189"/>
+  <testcase name="theTvsOwnListIsEnoughToRestoreFromANewPhone" classname="dev.tidytv.core.ops.RemovalTest" time="0.003"/>
+  <testcase name="anAppTheOwnerInstalledIsUninstalledForGoodAndReportedNotRetried" classname="dev.tidytv.core.ops.RemovalTest" time="0.003"/>
+  <testcase name="protectedAndHomeAppsAreNeverRemoved" classname="dev.tidytv.core.ops.RemovalTest" time="0.001"/>
+  <testcase name="checkMyTvSeesARemovedAppThatCameBack" classname="dev.tidytv.core.ops.RemovalTest" time="0.002"/>
+  <testcase name="oneRemovedAppComesBackByItself" classname="dev.tidytv.core.ops.RemovalTest" time="0.002"/>
+  <testcase name="parsersReadRealOutput" classname="dev.tidytv.core.ops.RemovalTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

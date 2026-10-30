@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.tidytv.core.ops.RestorerTest" tests="18" skipped="0" failures="0" errors="0" timestamp="2026-10-30T12:54:31.441Z" hostname="runnervm48cm3" time="0.039">
+  <properties/>
+  <testcase name="unmirrorRejectsUnsafeNames" classname="dev.tidytv.core.ops.RestorerTest" time="0.0"/>
+  <testcase name="enableThatDoesNotStickIsPartialAndKeepsHome" classname="dev.tidytv.core.ops.RestorerTest" time="0.003"/>
+  <testcase name="enableOnlyRefusesAppsTidyTvDidNotTurnOff" classname="dev.tidytv.core.ops.RestorerTest" time="0.001"/>
+  <testcase name="fullRestoreAfterASingleOneStillWorksAndBringsHomeBack" classname="dev.tidytv.core.ops.RestorerTest" time="0.002"/>
+  <testcase name="enableOnlyTurnsOnJustThatApp" classname="dev.tidytv.core.ops.RestorerTest" time="0.004"/>
+  <testcase name="packageUninstalledSinceIsFine" classname="dev.tidytv.core.ops.RestorerTest" time="0.002"/>
+  <testcase name="enableOnlyReportsADroppedConnection" classname="dev.tidytv.core.ops.RestorerTest" time="0.002"/>
+  <testcase name="runningTwiceIsHarmless" classname="dev.tidytv.core.ops.RestorerTest" time="0.002"/>
+  <testcase name="enableOnlyNeverBringsBackAHomeAppAlone" classname="dev.tidytv.core.ops.RestorerTest" time="0.002"/>
+  <testcase name="ownerDisabledPackagesStayOff" classname="dev.tidytv.core.ops.RestorerTest" time="0.002"/>
+  <testcase name="enableOnlyRemovesTheAppFromTheTvUndoList" classname="dev.tidytv.core.ops.RestorerTest" time="0.002"/>
+  <testcase name="fullRoundTripWithLauncherPutsStockHomeBackAndRemovesOurs" classname="dev.tidytv.core.ops.RestorerTest" time="0.004"/>
+  <testcase name="droppedConnectionReportsDisconnectedThenFinishesOnRetry" classname="dev.tidytv.core.ops.RestorerTest" time="0.002"/>
+  <testcase name="androidNineHomeUsesFullComponent" classname="dev.tidytv.core.ops.RestorerTest" time="0.002"/>
+  <testcase name="restoresFromPhoneLog" classname="dev.tidytv.core.ops.RestorerTest" time="0.002"/>
+  <testcase name="settingsGoBackToBackedUpValues" classname="dev.tidytv.core.ops.RestorerTest" time="0.003"/>
+  <testcase name="enableOnlyThatDoesNotStickIsPartial" classname="dev.tidytv.core.ops.RestorerTest" time="0.002"/>
+  <testcase name="restoresFromTvMirrorWhenPhoneLogIsGone" classname="dev.tidytv.core.ops.RestorerTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

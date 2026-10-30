@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.tidytv.core.lists.AllAppsSectionsTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-10-30T12:54:28.983Z" hostname="runnervm48cm3" time="0.52">
+  <properties/>
+  <testcase name="removableBeforeMoreAndOrderedBySaving" classname="dev.tidytv.core.lists.AllAppsSectionsTest" time="0.003"/>
+  <testcase name="realTvSplitsByOrigin" classname="dev.tidytv.core.lists.AllAppsSectionsTest" time="0.514"/>
+  <testcase name="emptySectionIsLeftOut" classname="dev.tidytv.core.lists.AllAppsSectionsTest" time="0.0"/>
+  <testcase name="searchMatchesLabelAndPackageIgnoringCase" classname="dev.tidytv.core.lists.AllAppsSectionsTest" time="0.0"/>
+  <testcase name="yoursFirstThenPreinstalled" classname="dev.tidytv.core.lists.AllAppsSectionsTest" time="0.001"/>
+  <testcase name="savingsSumRamAndStorage" classname="dev.tidytv.core.lists.AllAppsSectionsTest" time="0.0"/>
+  <testcase name="lockedIsNeverRemovable" classname="dev.tidytv.core.lists.AllAppsSectionsTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

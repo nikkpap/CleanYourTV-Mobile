@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.tidytv.core.ops.TextInputTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2026-10-30T12:54:31.491Z" hostname="runnervm48cm3" time="0.005">
+  <properties/>
+  <testcase name="spacesBecomePercentS" classname="dev.tidytv.core.ops.TextInputTest" time="0.001"/>
+  <testcase name="singleQuoteIsEscaped" classname="dev.tidytv.core.ops.TextInputTest" time="0.0"/>
+  <testcase name="nonAsciiDropped" classname="dev.tidytv.core.ops.TextInputTest" time="0.0"/>
+  <testcase name="quoteBreakoutIsExactlyEscaped" classname="dev.tidytv.core.ops.TextInputTest" time="0.0"/>
+  <testcase name="percentIsEscaped" classname="dev.tidytv.core.ops.TextInputTest" time="0.0"/>
+  <testcase name="controlCharsDropped" classname="dev.tidytv.core.ops.TextInputTest" time="0.001"/>
+  <testcase name="unsupportedFalseForPlainText" classname="dev.tidytv.core.ops.TextInputTest" time="0.0"/>
+  <testcase name="emptyIsNull" classname="dev.tidytv.core.ops.TextInputTest" time="0.0"/>
+  <testcase name="injectionAttemptsStayInsideTheQuotes" classname="dev.tidytv.core.ops.TextInputTest" time="0.001"/>
+  <testcase name="newlineAndTabAreDropped" classname="dev.tidytv.core.ops.TextInputTest" time="0.0"/>
+  <testcase name="plainWord" classname="dev.tidytv.core.ops.TextInputTest" time="0.0"/>
+  <testcase name="spaceOnlyStillTypes" classname="dev.tidytv.core.ops.TextInputTest" time="0.0"/>
+  <testcase name="capsAt200Characters" classname="dev.tidytv.core.ops.TextInputTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

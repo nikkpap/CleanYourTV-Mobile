@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.tidytv.core.ops.RemoteEssentialsTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-10-30T12:54:30.957Z" hostname="runnervm48cm3" time="0.254">
+  <properties/>
+  <testcase name="noListEverTicksTheAssistantOrRemoteHelpers" classname="dev.tidytv.core.ops.RemoteEssentialsTest" time="0.248"/>
+  <testcase name="checkMyTvWarnsWhenTheAssistantWeTurnedOffIsStillOff" classname="dev.tidytv.core.ops.RemoteEssentialsTest" time="0.005"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

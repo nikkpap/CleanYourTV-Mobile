@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.tidytv.core.ops.FileSenderTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-10-30T12:54:30.672Z" hostname="runnervm48cm3" time="0.028">
+  <properties/>
+  <testcase name="readsDfFromOldAndNewAndroid" classname="dev.tidytv.core.ops.FileSenderTest" time="0.0"/>
+  <testcase name="aDropIsReportedNotThrown" classname="dev.tidytv.core.ops.FileSenderTest" time="0.003"/>
+  <testcase name="tooBigForTheTvIsRefusedBeforeSending" classname="dev.tidytv.core.ops.FileSenderTest" time="0.005"/>
+  <testcase name="sendsIntoTheTidyTvFolderWithProgress" classname="dev.tidytv.core.ops.FileSenderTest" time="0.007"/>
+  <testcase name="unsafeNamesAreCleaned" classname="dev.tidytv.core.ops.FileSenderTest" time="0.002"/>
+  <testcase name="sameNameNeverOverwrites" classname="dev.tidytv.core.ops.FileSenderTest" time="0.007"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

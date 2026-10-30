@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.tidytv.core.ops.DebloaterTest" tests="18" skipped="0" failures="0" errors="0" timestamp="2026-10-30T12:54:30.595Z" hostname="runnervm48cm3" time="0.073">
+  <properties/>
+  <testcase name="refusedDisableStopsTheRun" classname="dev.tidytv.core.ops.DebloaterTest" time="0.011"/>
+  <testcase name="dropBeforeAnyCommandChangesNothing" classname="dev.tidytv.core.ops.DebloaterTest" time="0.002"/>
+  <testcase name="emptySelectionDoesNothing" classname="dev.tidytv.core.ops.DebloaterTest" time="0.006"/>
+  <testcase name="happyPathDisablesVerifiesLogsAndMirrors" classname="dev.tidytv.core.ops.DebloaterTest" time="0.008"/>
+  <testcase name="persistentPackagesAreSkipped" classname="dev.tidytv.core.ops.DebloaterTest" time="0.004"/>
+  <testcase name="alreadyDisabledIsNotTouchedOrClaimed" classname="dev.tidytv.core.ops.DebloaterTest" time="0.003"/>
+  <testcase name="garbageFromPmStopsSafely" classname="dev.tidytv.core.ops.DebloaterTest" time="0.003"/>
+  <testcase name="resumeCreditsAppsTurnedOffBeforeTheDropButNotOnesAlreadyOff" classname="dev.tidytv.core.ops.DebloaterTest" time="0.005"/>
+  <testcase name="homeAppsAreLeftToTheHandover" classname="dev.tidytv.core.ops.DebloaterTest" time="0.002"/>
+  <testcase name="protectedPackagesAreRefusedEvenIfAsked" classname="dev.tidytv.core.ops.DebloaterTest" time="0.002"/>
+  <testcase name="liveOwnersAndListKeepAreRefused" classname="dev.tidytv.core.ops.DebloaterTest" time="0.002"/>
+  <testcase name="mirrorAndIntentAreWrittenBeforeEachDisable" classname="dev.tidytv.core.ops.DebloaterTest" time="0.002"/>
+  <testcase name="droppedConnectionThenResumeFinishesWithoutDuplicates" classname="dev.tidytv.core.ops.DebloaterTest" time="0.003"/>
+  <testcase name="changeThatDoesNotStickStopsTheRun" classname="dev.tidytv.core.ops.DebloaterTest" time="0.004"/>
+  <testcase name="notInstalledIsSkipped" classname="dev.tidytv.core.ops.DebloaterTest" time="0.004"/>
+  <testcase name="onePmCommandPerPackageNeverChained" classname="dev.tidytv.core.ops.DebloaterTest" time="0.003"/>
+  <testcase name="invalidNameNeverReachesTheShell" classname="dev.tidytv.core.ops.DebloaterTest" time="0.003"/>
+  <testcase name="readOnlyMirrorStopsBeforeAnyChange" classname="dev.tidytv.core.ops.DebloaterTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

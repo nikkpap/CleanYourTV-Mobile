@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.tidytv.core.lists.GroupingTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-10-30T12:54:29.505Z" hostname="runnervm48cm3" time="0.009">
+  <properties/>
+  <testcase name="findsInstalledAppsFromOtherListsAllUnselected" classname="dev.tidytv.core.lists.GroupingTest" time="0.006"/>
+  <testcase name="neverReturnsHomeApps" classname="dev.tidytv.core.lists.GroupingTest" time="0.001"/>
+  <testcase name="neverReturnsAppsAlreadyOfferedOrNotInstalled" classname="dev.tidytv.core.lists.GroupingTest" time="0.001"/>
+  <testcase name="neverReturnsProtectedApps" classname="dev.tidytv.core.lists.GroupingTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

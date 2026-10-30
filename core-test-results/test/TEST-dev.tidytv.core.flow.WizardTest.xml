@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.tidytv.core.flow.WizardTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2026-10-30T12:54:28.967Z" hostname="runnervm48cm3" time="0.013">
+  <properties/>
+  <testcase name="fireTvHasNoHomeScreenTile" classname="dev.tidytv.core.flow.WizardTest" time="0.002"/>
+  <testcase name="tilesOnlyWorkFromTheHub" classname="dev.tidytv.core.flow.WizardTest" time="0.005"/>
+  <testcase name="tvItselfDecidesFireOs" classname="dev.tidytv.core.flow.WizardTest" time="0.0"/>
+  <testcase name="savedTvSkipsSetupAndBackGoesHome" classname="dev.tidytv.core.flow.WizardTest" time="0.002"/>
+  <testcase name="fireTvSkipsHomeScreen" classname="dev.tidytv.core.flow.WizardTest" time="0.0"/>
+  <testcase name="backNavigation" classname="dev.tidytv.core.flow.WizardTest" time="0.001"/>
+  <testcase name="samsungAndLgAreNotSupported" classname="dev.tidytv.core.flow.WizardTest" time="0.0"/>
+  <testcase name="hubTilesOpenEachFeatureAndBackReturnsToTheHub" classname="dev.tidytv.core.flow.WizardTest" time="0.001"/>
+  <testcase name="nothingLeavesWhileBusy" classname="dev.tidytv.core.flow.WizardTest" time="0.0"/>
+  <testcase name="googleTvHappyPath" classname="dev.tidytv.core.flow.WizardTest" time="0.0"/>
+  <testcase name="eventsForOtherScreensAreIgnored" classname="dev.tidytv.core.flow.WizardTest" time="0.001"/>
+  <testcase name="stoppedTidyStaysWithMessage" classname="dev.tidytv.core.flow.WizardTest" time="0.0"/>
+  <testcase name="restoreIsATileOnTheHub" classname="dev.tidytv.core.flow.WizardTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.tidytv.core.flow.ConnectMachineTest" tests="19" skipped="0" failures="0" errors="0" timestamp="2026-10-30T12:54:28.918Z" hostname="runnervm48cm3" time="0.043">
+  <properties/>
+  <testcase name="wrongPairingCodeShowsErrorAndAllowsAnotherTry" classname="dev.tidytv.core.flow.ConnectMachineTest" time="0.005"/>
+  <testcase name="reachableTvsAreListedFirst" classname="dev.tidytv.core.flow.ConnectMachineTest" time="0.017"/>
+  <testcase name="pairingCodeWithWrongDigitCountIsRefusedLocally" classname="dev.tidytv.core.flow.ConnectMachineTest" time="0.001"/>
+  <testcase name="backReturnsToScanning" classname="dev.tidytv.core.flow.ConnectMachineTest" time="0.0"/>
+  <testcase name="typedIpThatDoesNotAnswerShowsSameWifiHelp" classname="dev.tidytv.core.flow.ConnectMachineTest" time="0.0"/>
+  <testcase name="nothingFoundGoesToTypeTheIp" classname="dev.tidytv.core.flow.ConnectMachineTest" time="0.001"/>
+  <testcase name="ipChangedRescansAndReconnectsToTheSameTv" classname="dev.tidytv.core.flow.ConnectMachineTest" time="0.0"/>
+  <testcase name="retryOnlyAfterThirtySeconds" classname="dev.tidytv.core.flow.ConnectMachineTest" time="0.001"/>
+  <testcase name="typedIpConnectsAndBadIpIsRefused" classname="dev.tidytv.core.flow.ConnectMachineTest" time="0.007"/>
+  <testcase name="scanMergesNsdAndPortProbeByHost" classname="dev.tidytv.core.flow.ConnectMachineTest" time="0.004"/>
+  <testcase name="refusedWithoutWirelessDebuggingShowsHelp" classname="dev.tidytv.core.flow.ConnectMachineTest" time="0.001"/>
+  <testcase name="deniedIsShownAndCanRetry" classname="dev.tidytv.core.flow.ConnectMachineTest" time="0.0"/>
+  <testcase name="wirelessDebuggingAppearingWhileOnHelpMovesToPairing" classname="dev.tidytv.core.flow.ConnectMachineTest" time="0.0"/>
+  <testcase name="waitingForAllowShowsPromptThenAutoAdvances" classname="dev.tidytv.core.flow.ConnectMachineTest" time="0.0"/>
+  <testcase name="pairingNeedsAPortWhenTheTvDidNotAdvertiseOne" classname="dev.tidytv.core.flow.ConnectMachineTest" time="0.0"/>
+  <testcase name="refusedWithWirelessDebuggingGoesToPairing" classname="dev.tidytv.core.flow.ConnectMachineTest" time="0.001"/>
+  <testcase name="lateResultsAfterLeavingAreIgnored" classname="dev.tidytv.core.flow.ConnectMachineTest" time="0.0"/>
+  <testcase name="scanThenTapThenConnected" classname="dev.tidytv.core.flow.ConnectMachineTest" time="0.0"/>
+  <testcase name="allowTimeoutOffersRetry" classname="dev.tidytv.core.flow.ConnectMachineTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

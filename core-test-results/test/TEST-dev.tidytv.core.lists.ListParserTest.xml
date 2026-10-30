@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.tidytv.core.lists.ListParserTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-10-30T12:54:29.862Z" hostname="runnervm48cm3" time="0.013">
+  <properties/>
+  <testcase name="readsStockLauncherFromHeader" classname="dev.tidytv.core.lists.ListParserTest" time="0.002"/>
+  <testcase name="rejectsCommentOnlyList" classname="dev.tidytv.core.lists.ListParserTest" time="0.0"/>
+  <testcase name="optionalThatIsAlsoActiveIsNotOptional" classname="dev.tidytv.core.lists.ListParserTest" time="0.001"/>
+  <testcase name="shellRecipeInCommentIsNotAnOptionalEntry" classname="dev.tidytv.core.lists.ListParserTest" time="0.0"/>
+  <testcase name="rejectsMissingTitleComment" classname="dev.tidytv.core.lists.ListParserTest" time="0.001"/>
+  <testcase name="parsesEntriesSectionsAndNotes" classname="dev.tidytv.core.lists.ListParserTest" time="0.0"/>
+  <testcase name="rejectsDuplicates" classname="dev.tidytv.core.lists.ListParserTest" time="0.001"/>
+  <testcase name="commentedOutPackagesAreOptionalExtras" classname="dev.tidytv.core.lists.ListParserTest" time="0.001"/>
+  <testcase name="detectsFireOsAndPmHide" classname="dev.tidytv.core.lists.ListParserTest" time="0.0"/>
+  <testcase name="packageNameValidator" classname="dev.tidytv.core.lists.ListParserTest" time="0.001"/>
+  <testcase name="rejectsWholeListOnShellInjection" classname="dev.tidytv.core.lists.ListParserTest" time="0.005"/>
+  <testcase name="keepSentencesAcrossLinesAreProtected" classname="dev.tidytv.core.lists.ListParserTest" time="0.001"/>
+  <testcase name="stripsBomAndCrlf" classname="dev.tidytv.core.lists.ListParserTest" time="0.0"/>
+  <testcase name="rejectsTwoTokensOnOneLine" classname="dev.tidytv.core.lists.ListParserTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

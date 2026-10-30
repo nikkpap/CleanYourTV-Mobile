@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.tidytv.core.ops.LauncherHandoverTest" tests="27" skipped="0" failures="0" errors="0" timestamp="2026-10-30T12:54:30.787Z" hostname="runnervm48cm3" time="0.081">
+  <properties/>
+  <testcase name="otherInstallFailureLeavesTvUntouched" classname="dev.tidytv.core.ops.LauncherHandoverTest" time="0.002"/>
+  <testcase name="unknownHomeOwnerChangesNothing" classname="dev.tidytv.core.ops.LauncherHandoverTest" time="0.002"/>
+  <testcase name="droppedConnectionIsReported" classname="dev.tidytv.core.ops.LauncherHandoverTest" time="0.002"/>
+  <testcase name="chooserWithTwoKnownStockLaunchersAsks" classname="dev.tidytv.core.ops.LauncherHandoverTest" time="0.001"/>
+  <testcase name="homeAlreadyOursDisablesNothing" classname="dev.tidytv.core.ops.LauncherHandoverTest" time="0.004"/>
+  <testcase name="setupWraithOwningWifiIsNeverTurnedOff" classname="dev.tidytv.core.ops.LauncherHandoverTest" time="0.001"/>
+  <testcase name="setupWraithPersistentIsLeftOn" classname="dev.tidytv.core.ops.LauncherHandoverTest" time="0.001"/>
+  <testcase name="chooserWithOneKnownStockLauncherPicksIt" classname="dev.tidytv.core.ops.LauncherHandoverTest" time="0.003"/>
+  <testcase name="androidTv9ClassicLauncher" classname="dev.tidytv.core.ops.LauncherHandoverTest" time="0.002"/>
+  <testcase name="ourHomeScreensAreNeverCleanUpCandidates" classname="dev.tidytv.core.ops.LauncherHandoverTest" time="0.0"/>
+  <testcase name="styledConfigIsWrittenBeforeTheLauncherStarts" classname="dev.tidytv.core.ops.LauncherHandoverTest" time="0.012"/>
+  <testcase name="setupWraithTakingHomeLateRollsBack" classname="dev.tidytv.core.ops.LauncherHandoverTest" time="0.004"/>
+  <testcase name="restoreRemovesWhicheverHomeScreenWasInstalled" classname="dev.tidytv.core.ops.LauncherHandoverTest" time="0.005"/>
+  <testcase name="styledHomeGetsDockFromConfigNotExtras" classname="dev.tidytv.core.ops.LauncherHandoverTest" time="0.003"/>
+  <testcase name="setupWraithOwningWifiIsAllowedOnEthernet" classname="dev.tidytv.core.ops.LauncherHandoverTest" time="0.001"/>
+  <testcase name="googleTvHandsHomeOverAndDisablesLauncherx" classname="dev.tidytv.core.ops.LauncherHandoverTest" time="0.003"/>
+  <testcase name="persistentStockLauncherIsNotDisabled" classname="dev.tidytv.core.ops.LauncherHandoverTest" time="0.002"/>
+  <testcase name="styledWithNoDockSkipsConfig" classname="dev.tidytv.core.ops.LauncherHandoverTest" time="0.004"/>
+  <testcase name="switchingBetweenTidyHomeScreensLeavesStockAlone" classname="dev.tidytv.core.ops.LauncherHandoverTest" time="0.005"/>
+  <testcase name="signatureConflictIsReportedThenRemovedOnRequest" classname="dev.tidytv.core.ops.LauncherHandoverTest" time="0.003"/>
+  <testcase name="lateRollbackThatFailsGivesRescueCommands" classname="dev.tidytv.core.ops.LauncherHandoverTest" time="0.003"/>
+  <testcase name="startIsConfirmedBeforeStockLauncherIsTouched" classname="dev.tidytv.core.ops.LauncherHandoverTest" time="0.003"/>
+  <testcase name="launcherThatDoesNotStartLeavesStockAlone" classname="dev.tidytv.core.ops.LauncherHandoverTest" time="0.003"/>
+  <testcase name="usesPushThenPmInstallNeverAdbInstall" classname="dev.tidytv.core.ops.LauncherHandoverTest" time="0.003"/>
+  <testcase name="verificationFailureMeansLauncherIsImpossibleHere" classname="dev.tidytv.core.ops.LauncherHandoverTest" time="0.001"/>
+  <testcase name="setupWraithBlockedUntilFirstSetupIsDone" classname="dev.tidytv.core.ops.LauncherHandoverTest" time="0.002"/>
+  <testcase name="setupWraithCanBeTurnedOffWhenSafeThenHandoverSucceeds" classname="dev.tidytv.core.ops.LauncherHandoverTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
