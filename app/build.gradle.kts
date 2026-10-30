@@ -16,8 +16,8 @@ android {
         applicationId = "com.nikkpap.cleanyourtv"
         minSdk = 26
         targetSdk = 36
-        versionCode = 4
-        versionName = "1.2.1"
+        versionCode = 5
+        versionName = "1.3.0"
     }
 
     // Release signing comes from keys/signing.properties, a git-ignored folder in the repo.
