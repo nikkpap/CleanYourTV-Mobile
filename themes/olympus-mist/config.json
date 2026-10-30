@@ -8,5 +8,6 @@
   "wifi_status_color": true,
   "focus_overshoot": false,
   "ambient_glow": false,
-  "fade_rows": true
+  "fade_rows": true,
+  "icon_only_inputs": true
 }

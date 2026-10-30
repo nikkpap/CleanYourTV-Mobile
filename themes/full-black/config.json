@@ -16,5 +16,6 @@
   "show_stats": true,
   "live_tv_row": false,
   "clock_glow": false,
-  "glass_style": "rim"
+  "glass_style": "rim",
+  "icon_only_inputs": true
 }

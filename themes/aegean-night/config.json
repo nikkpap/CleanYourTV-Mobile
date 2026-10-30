@@ -9,5 +9,6 @@
   "glow_style": "horizon",
   "focus_overshoot": false,
   "clock_wallpaper": true,
-  "clock_wallpaper_dim": 45
+  "clock_wallpaper_dim": 45,
+  "icon_only_inputs": true
 }

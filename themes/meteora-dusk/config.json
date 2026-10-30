@@ -8,5 +8,6 @@
   "icon_only_buttons": true,
   "app_glow": true,
   "ambient_glow": false,
-  "focus_overshoot": false
+  "focus_overshoot": false,
+  "icon_only_inputs": true
 }

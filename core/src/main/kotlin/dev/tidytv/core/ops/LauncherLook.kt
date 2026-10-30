@@ -82,6 +82,8 @@ class LauncherLook(private val tv: TvShell, private val clock: () -> Long = Syst
             val out = theme.toMutableMap()
             if (dock.isNotEmpty()) out["dock_apps"] = JsonArray(dock.map { JsonPrimitive(it) })
             else out.remove("dock_apps")
+            // CleanYourTV: icon-only buttons make the Inputs pill round too, unless the theme says otherwise.
+            if ((out["icon_only_buttons"] as? JsonPrimitive)?.content == "true" && "icon_only_inputs" !in out) out["icon_only_inputs"] = JsonPrimitive(true)
             // CleanYourTV: the Live TV tile, TV button and channels app, unless the theme says otherwise.
             if (liveTv != null) for ((k, v) in LiveTv.keys(liveTv)) if (k !in out) out[k] = v
             return JsonObject(out).toString() + "\n"
